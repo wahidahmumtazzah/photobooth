@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StarSnap Photobooth</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <section id="landingScreen" class="hero-stage screen active-screen">
+      <div class="hero-strip hero-strip-left">
+        <div class="hero-strip-card tilt-left">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="hero-center">
+        <p class="eyebrow">Online Photobooth</p>
+        <h1>photobooth</h1>
+        <p class="intro">Capture the moment, cherish the magic, relive the fun.</p>
+        <button id="startEditingBtn" class="hero-start">Start</button>
+      </div>
+
+      <div class="hero-strip hero-strip-right">
+        <div class="hero-strip-card tilt-right dark">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="layoutScreen" class="layout-stage screen">
+      <div class="brand-block brand-center">
+        <p class="eyebrow">Choose Your Layout</p>
+        <h2>pick your strip</h2>
+        <p class="intro">
+          Pilih model photostrip dulu, lalu lanjut ke camera booth untuk ambil foto.
+        </p>
+      </div>
+
+      <div id="stripGrid" class="layout-gallery"></div>
+
+      <div class="flow-actions">
+        <button id="backToLandingBtn">Back</button>
+        <button id="continueToCameraBtn" class="primary">Continue</button>
+      </div>
+    </section>
+
+    <div id="cameraScreen" class="workspace-shell screen">
+      <aside class="control-panel">
+        <section class="panel-card">
+          <div class="section-head">
+            <h2>1. Kamera</h2>
+            <span>Live</span>
+          </div>
+          <div class="camera-stage">
+            <video id="camera" autoplay playsinline muted></video>
+            <div id="countdownOverlay" class="countdown-overlay"></div>
+          </div>
+          <div class="timer-head">
+            <strong>Timer</strong>
+            <span id="timerLabel">0s</span>
+          </div>
+          <div id="timerGrid" class="timer-grid"></div>
+          <div class="button-row">
+            <button id="startCameraBtn" class="primary">Nyalakan Kamera</button>
+            <button id="captureBtn">Ambil Foto</button>
+            <button id="resetBtn">Reset</button>
+          </div>
+          <p class="hint">Ambil pose sesuai model strip yang dipilih.</p>
+        </section>
+
+        <section class="panel-card">
+          <div class="section-head">
+            <h2>2. Partner</h2>
+            <span>Upload</span>
+          </div>
+          <label class="upload-field" for="partnerUpload">
+            <input id="partnerUpload" type="file" accept="image/*" />
+            <span>Upload foto partner</span>
+          </label>
+        </section>
+
+        <section class="panel-card">
+          <div class="section-head">
+            <h2>3. Frame Pack</h2>
+            <span>8 styles</span>
+          </div>
+          <div id="frameGrid" class="frame-grid"></div>
+        </section>
+
+        <section class="panel-card">
+          <div class="section-head">
+            <h2>4. Filter</h2>
+            <span>Live</span>
+          </div>
+          <div id="filterGrid" class="filter-grid"></div>
+        </section>
+
+        <section class="panel-card shot-card">
+          <div class="section-head">
+            <h2>5. Shots</h2>
+            <span id="shotCounter">0 / 4</span>
+          </div>
+          <div id="shotTray" class="shot-tray"></div>
+        </section>
+
+        <div class="flow-actions compact-actions">
+          <button id="backToLayoutBtn">Back</button>
+          <button id="downloadBtn" class="primary">Download PNG</button>
+        </div>
+      </aside>
+
+      <main class="preview-panel">
+        <div class="preview-header">
+          <div>
+            <p class="eyebrow">Final Preview</p>
+            <h2>StarSnap Card</h2>
+          </div>
+          <span id="activeStripName" class="preview-chip">Korean 4</span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="posterCanvas" width="1200" height="1800"></canvas>
+        </div>
+
+        <div class="status-bar">
+          <span id="statusText">Siap. Pilih layout, upload partner, lalu nyalakan kamera.</span>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
