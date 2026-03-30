@@ -19,7 +19,17 @@ const contentTypes = {
 };
 
 const server = http.createServer((request, response) => {
-  const requestPath = request.url === "/" ? "/index.html" : request.url;
+  const rawPath = request.url === "/" ? "/index.html" : request.url;
+  let requestPath;
+
+  try {
+    requestPath = decodeURIComponent(rawPath);
+  } catch {
+    response.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" });
+    response.end("Bad request");
+    return;
+  }
+
   const safePath = path.normalize(requestPath).replace(/^(\.\.[/\\])+/, "");
   const filePath = path.join(rootDir, safePath);
 

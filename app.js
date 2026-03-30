@@ -1,75 +1,57 @@
 const framePresets = [
   {
-    id: "kawaii-pop",
-    name: "Kawaii Pop",
+    id: "shinchan",
+    name: "Shinchan Mood",
     theme: "kawaii",
-    desc: "pink, sticker, super cute",
-    palette: ["#fff1f5", "#ff7ea8", "#ffc3d5", "#fff9c9"],
-    accent: "#ff4f85",
-    stamp: ["heart", "star", "spark"],
-  },
-  {
-    id: "blue-idol",
-    name: "Blue Idol",
-    theme: "anime",
-    desc: "cool stage, dreamy, glossy",
-    palette: ["#edf6ff", "#4b8bff", "#a9d0ff", "#d9f0ff"],
-    accent: "#2d5db3",
-    stamp: ["spark", "ticket", "star"],
-  },
-  {
-    id: "manga-burst",
-    name: "Manga Burst",
-    theme: "anime",
-    desc: "comic vibe, loud and fun",
-    palette: ["#fff9e8", "#ffae00", "#ffd86a", "#fff2bf"],
-    accent: "#d87900",
+    desc: "playful doodle, comic fun",
+    palette: ["#fff7df", "#ff9d6c", "#ffe9b3", "#fff3d8"],
+    accent: "#f57f45",
     stamp: ["burst", "star", "dot"],
   },
   {
-    id: "midnight-neon",
-    name: "Midnight Neon",
-    theme: "retro",
-    desc: "dark pop, neon club energy",
-    palette: ["#151824", "#7d7cff", "#2ee7d6", "#0e1220"],
-    accent: "#2ee7d6",
-    stamp: ["spark", "star", "ticket"],
-  },
-  {
-    id: "cloudy-love",
-    name: "Cloudy Love",
+    id: "cat-club",
+    name: "Kucing",
     theme: "kawaii",
-    desc: "soft clouds, ribbon, pastel",
-    palette: ["#f8f4ff", "#a890ff", "#ffd8ea", "#eef3ff"],
-    accent: "#8b6df2",
-    stamp: ["cloud", "heart", "spark"],
+    desc: "cat paw, milk tone, cute",
+    palette: ["#fff8f3", "#c58f6a", "#f6ddcb", "#fff1e8"],
+    accent: "#9a5d3b",
+    stamp: ["heart", "dot", "spark"],
   },
   {
-    id: "retro-arcade",
-    name: "Retro Arcade",
-    theme: "retro",
-    desc: "pixel-ish, fun and bright",
-    palette: ["#fff6f1", "#ff6b6b", "#4bffb4", "#ffe773"],
-    accent: "#2b2b2b",
-    stamp: ["ticket", "star", "dot"],
-  },
-  {
-    id: "sakura-night",
-    name: "Sakura Night",
-    theme: "anime",
-    desc: "anime romance, cool petals",
-    palette: ["#fff5fa", "#ff89b7", "#29345b", "#ffe1ef"],
-    accent: "#29345b",
+    id: "flower-note",
+    name: "Bunga",
+    theme: "kawaii",
+    desc: "soft bloom, pastel petals",
+    palette: ["#fff7fb", "#f48fb1", "#ffd8ea", "#ffeef6"],
+    accent: "#d85f8c",
     stamp: ["petal", "spark", "heart"],
   },
   {
-    id: "chrome-wave",
-    name: "Chrome Wave",
+    id: "butterfly-air",
+    name: "Kupu-kupu",
+    theme: "anime",
+    desc: "airy flutter, dreamy light",
+    palette: ["#f8f7ff", "#9f8cff", "#ddd7ff", "#eef0ff"],
+    accent: "#7967e8",
+    stamp: ["spark", "petal", "star"],
+  },
+  {
+    id: "about-you",
+    name: "About You",
     theme: "retro",
-    desc: "silver cool, futuristic idol",
-    palette: ["#f5f7fb", "#8b98b8", "#dfe7f7", "#a3d5ff"],
-    accent: "#54627e",
-    stamp: ["spark", "burst", "ticket"],
+    desc: "moody song lyric vibe",
+    palette: ["#fff8f5", "#ad7f73", "#ead6d1", "#f7ece8"],
+    accent: "#825d55",
+    stamp: ["star", "spark", "ticket"],
+  },
+  {
+    id: "kitty-pop",
+    name: "Hello Kitty",
+    theme: "kawaii",
+    desc: "pink ribbon, sweet pop",
+    palette: ["#fff6fa", "#ff7cab", "#ffd6e6", "#fff1f6"],
+    accent: "#ff4f8d",
+    stamp: ["heart", "spark", "cloud"],
   },
 ];
 
@@ -77,10 +59,30 @@ const state = {
   selectedFrame: framePresets[0],
   shots: [],
   partnerImage: null,
-  layout: "duo",
+  layout: "strip",
   filter: "none",
-  stripStyle: "classic",
+  stripColor: "classic-white",
+  stripStyle: "korean",
+  currentScreen: "landing",
+  captureDelay: 0,
+  isCountingDown: false,
   stream: null,
+};
+
+const aboutYouStickerAssets = {
+  bunny: loadSticker("./assets/stickers/about you 1.png"),
+  car: loadSticker("./assets/stickers/about you 2.png"),
+  clapper: loadSticker("./assets/stickers/about you 3.png"),
+  footer: loadSticker("./assets/stickers/about you 4.png"),
+};
+
+const stripBackgroundAssets = {
+  kiss: loadSticker("./assets/latar/kiss.jpg"),
+  kotakMerah: loadSticker("./assets/latar/latar kotak merah.jpg"),
+  pelangi: loadSticker("./assets/latar/latar pelangi.png"),
+  macanTutul: loadSticker("./assets/latar/macan tutul.jpg"),
+  pelangiBintang: loadSticker("./assets/latar/pelangi bintang.jpg"),
+  zebra: loadSticker("./assets/latar/zebra.jpg"),
 };
 
 const filterPresets = [
@@ -91,11 +93,31 @@ const filterPresets = [
   { id: "mono", name: "Mono Film", css: "grayscale(1) contrast(1.12) brightness(1.04)" },
   { id: "dreamy", name: "Dreamy", css: "brightness(1.08) saturate(0.9) contrast(0.92) blur(0.4px)" },
 ];
+const timerPresets = [0, 3, 5, 10];
+const stripColorPresets = [
+  { id: "deep-maroon", name: "Maroon", base: "#5a0019", edge: "rgba(255, 128, 166, 0.28)", inner: "rgba(255, 255, 255, 0.08)" },
+  { id: "ink-black", name: "Ink", base: "#0b0405", edge: "rgba(255, 123, 160, 0.22)", inner: "rgba(255, 255, 255, 0.05)" },
+  { id: "classic-white", name: "White", base: "#fffefe", edge: "rgba(40, 32, 32, 0.10)", inner: "rgba(0, 0, 0, 0.018)" },
+  { id: "hot-pink", name: "Hot Pink", base: "#ff4d91", edge: "rgba(167, 11, 72, 0.28)", inner: "rgba(255, 255, 255, 0.18)" },
+  { id: "bg-kiss", name: "Kiss", base: "#ffd7e6", edge: "rgba(152, 56, 92, 0.24)", inner: "rgba(255, 255, 255, 0.12)", image: stripBackgroundAssets.kiss, swatchImage: "./assets/latar/kiss.jpg" },
+  { id: "bg-kotak-merah", name: "Kotak Merah", base: "#7b1632", edge: "rgba(255, 225, 232, 0.28)", inner: "rgba(255, 255, 255, 0.08)", image: stripBackgroundAssets.kotakMerah, swatchImage: "./assets/latar/latar kotak merah.jpg" },
+  { id: "bg-pelangi", name: "Pelangi", base: "#ffd7ea", edge: "rgba(162, 76, 116, 0.24)", inner: "rgba(255, 255, 255, 0.14)", image: stripBackgroundAssets.pelangi, swatchImage: "./assets/latar/latar pelangi.png" },
+  { id: "bg-pelangi-bintang", name: "Pelangi Star", base: "#ffe9f5", edge: "rgba(134, 95, 157, 0.24)", inner: "rgba(255, 255, 255, 0.12)", image: stripBackgroundAssets.pelangiBintang, swatchImage: "./assets/latar/pelangi bintang.jpg", pattern: true, decorate: "rainbow-stars" },
+  { id: "bg-macan-tutul", name: "Macan", base: "#d8b07f", edge: "rgba(92, 52, 22, 0.24)", inner: "rgba(255, 255, 255, 0.1)", image: stripBackgroundAssets.macanTutul, swatchImage: "./assets/latar/macan tutul.jpg" },
+  { id: "bg-zebra", name: "Zebra", base: "#efefef", edge: "rgba(40, 40, 40, 0.18)", inner: "rgba(255, 255, 255, 0.1)", image: stripBackgroundAssets.zebra, swatchImage: "./assets/latar/zebra.jpg" },
+  { id: "blush-pink", name: "Blush", base: "#ffe6ef", edge: "rgba(214, 108, 151, 0.28)", inner: "rgba(255, 255, 255, 0.22)" },
+  { id: "butter-yellow", name: "Butter", base: "#fff5c8", edge: "rgba(210, 170, 83, 0.26)", inner: "rgba(255, 255, 255, 0.18)" },
+  { id: "mint-candy", name: "Mint", base: "#dcfff1", edge: "rgba(87, 183, 146, 0.28)", inner: "rgba(255, 255, 255, 0.18)" },
+  { id: "sky-blue", name: "Sky", base: "#e1efff", edge: "rgba(104, 152, 223, 0.26)", inner: "rgba(255, 255, 255, 0.18)" },
+  { id: "lavender", name: "Lavender", base: "#eee5ff", edge: "rgba(139, 116, 215, 0.26)", inner: "rgba(255, 255, 255, 0.18)" },
+  { id: "peach-soda", name: "Peach", base: "#ffe9df", edge: "rgba(224, 139, 98, 0.26)", inner: "rgba(255, 255, 255, 0.18)" },
+  { id: "strawberry", name: "Berry", base: "#ffd7df", edge: "rgba(217, 89, 132, 0.28)", inner: "rgba(255, 255, 255, 0.18)" },
+];
 const stripPresets = [
-  { id: "korean", name: "Korean 4", desc: "slim clean booth strip", shots: 4, stripW: 320, topPad: 58, bottomPad: 112, gap: 14, radius: 18 },
-  { id: "classic", name: "Classic 4", desc: "4 frame tall strip", shots: 4, stripW: 360, topPad: 74, bottomPad: 106, gap: 18, radius: 26 },
-  { id: "airy", name: "Airy 3", desc: "3 frame lebih lega", shots: 3, stripW: 410, topPad: 82, bottomPad: 116, gap: 26, radius: 28 },
-  { id: "mini", name: "Mini 2", desc: "2 frame besar", shots: 2, stripW: 450, topPad: 92, bottomPad: 122, gap: 30, radius: 30 },
+  { id: "korean", name: "Korean 4", desc: "slim clean booth strip", shots: 4, stripW: 500, topPad: 64, bottomPad: 132, gap: 18, radius: 22, photoAspect: 0.76 },
+  { id: "classic", name: "Classic 4", desc: "4 frame tall strip", shots: 4, stripW: 540, topPad: 78, bottomPad: 132, gap: 22, radius: 28, photoAspect: 0.76 },
+  { id: "airy", name: "Airy 3", desc: "3 frame lebih lega", shots: 3, stripW: 590, topPad: 88, bottomPad: 138, gap: 28, radius: 30, photoAspect: 0.76 },
+  { id: "mini", name: "Mini 2", desc: "2 frame besar", shots: 2, stripW: 450, topPad: 92, bottomPad: 122, gap: 30, radius: 30, photoAspect: 1.38 },
 ];
 
 const camera = document.getElementById("camera");
@@ -106,23 +128,53 @@ const downloadBtn = document.getElementById("downloadBtn");
 const partnerUpload = document.getElementById("partnerUpload");
 const frameGrid = document.getElementById("frameGrid");
 const filterGrid = document.getElementById("filterGrid");
+const stripColorGrid = document.getElementById("stripColorGrid");
 const stripGrid = document.getElementById("stripGrid");
+const timerGrid = document.getElementById("timerGrid");
 const shotTray = document.getElementById("shotTray");
 const shotCounter = document.getElementById("shotCounter");
 const statusText = document.getElementById("statusText");
 const startEditingBtn = document.getElementById("startEditingBtn");
-const workspaceShell = document.getElementById("workspaceShell");
+const continueToCameraBtn = document.getElementById("continueToCameraBtn");
+const backToLandingBtn = document.getElementById("backToLandingBtn");
+const backToLayoutBtn = document.getElementById("backToLayoutBtn");
+const timerLabel = document.getElementById("timerLabel");
+const activeStripName = document.getElementById("activeStripName");
+const selectedStripTitle = document.getElementById("selectedStripTitle");
+const selectedStripPreview = document.getElementById("selectedStripPreview");
+const cameraStripTitle = document.getElementById("cameraStripTitle");
+const cameraStripPreview = document.getElementById("cameraStripPreview");
+const countdownOverlay = document.getElementById("countdownOverlay");
+const previewEmptyState = document.getElementById("previewEmptyState");
+const landingScreen = document.getElementById("landingScreen");
+const layoutScreen = document.getElementById("layoutScreen");
+const cameraScreen = document.getElementById("cameraScreen");
 const posterCanvas = document.getElementById("posterCanvas");
 const ctx = posterCanvas.getContext("2d");
 
 function init() {
   renderFrameOptions();
   renderFilterOptions();
+  renderStripColorOptions();
+  renderTimerOptions();
   renderStripOptions();
   bindEvents();
   syncShotState();
   renderShotTray();
+  updateScreen();
+  updateCameraAspect();
   drawPoster();
+}
+
+function loadSticker(src) {
+  const image = new Image();
+  image.src = src;
+  image.onload = () => {
+    if (state.currentScreen === "camera") {
+      drawPoster();
+    }
+  };
+  return image;
 }
 
 function bindEvents() {
@@ -132,20 +184,21 @@ function bindEvents() {
   downloadBtn.addEventListener("click", downloadPoster);
   partnerUpload.addEventListener("change", handlePartnerUpload);
   startEditingBtn?.addEventListener("click", () => {
-    workspaceShell?.scrollIntoView({ behavior: "smooth", block: "start" });
+    state.currentScreen = "layout";
+    updateScreen();
   });
-
-  document.querySelectorAll(".layout-btn").forEach((button) => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll(".layout-btn").forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
-      state.layout = button.dataset.layout;
-      syncShotState();
-      renderStripOptions();
-      renderShotTray();
-      statusText.textContent = `Layout diganti ke ${button.textContent}.`;
-      drawPoster();
-    });
+  continueToCameraBtn?.addEventListener("click", () => {
+    state.currentScreen = "camera";
+    updateScreen();
+    statusText.textContent = `Strip ${getActiveStripPreset().name} siap. Nyalakan kamera untuk mulai.`;
+  });
+  backToLandingBtn?.addEventListener("click", () => {
+    state.currentScreen = "landing";
+    updateScreen();
+  });
+  backToLayoutBtn?.addEventListener("click", () => {
+    state.currentScreen = "layout";
+    updateScreen();
   });
 }
 
@@ -172,7 +225,11 @@ async function startCamera() {
   }
 }
 
-function captureShot() {
+async function captureShot() {
+  if (state.isCountingDown) {
+    return;
+  }
+
   if (!camera.videoWidth || !camera.videoHeight) {
     statusText.textContent = "Nyalakan kamera dulu sebelum ambil foto.";
     return;
@@ -184,9 +241,23 @@ function captureShot() {
     return;
   }
 
+  if (state.captureDelay > 0) {
+    state.isCountingDown = true;
+    captureBtn.disabled = true;
+    await runCountdown(state.captureDelay);
+    state.isCountingDown = false;
+    captureBtn.disabled = false;
+  }
+
   const captureCanvas = document.createElement("canvas");
-  captureCanvas.width = 800;
-  captureCanvas.height = 1000;
+  const activeStrip = getActiveStripPreset();
+  const { innerW, slotH } = getStripMetrics(activeStrip);
+  const captureWidth = 900;
+  const captureHeight = activeStrip.shots === 3 || activeStrip.shots === 4
+    ? Math.round(captureWidth * (9 / 16))
+    : Math.round(captureWidth * (slotH / innerW));
+  captureCanvas.width = captureWidth;
+  captureCanvas.height = captureHeight;
   const captureCtx = captureCanvas.getContext("2d");
   captureCtx.drawImage(camera, 0, 0, captureCanvas.width, captureCanvas.height);
 
@@ -259,8 +330,49 @@ function renderFilterOptions() {
   });
 }
 
+function renderStripColorOptions() {
+  stripColorGrid.innerHTML = "";
+
+  stripColorPresets.forEach((color) => {
+    const button = document.createElement("button");
+    button.className = `color-btn${color.id === state.stripColor ? " active" : ""}`;
+    button.title = color.name;
+    button.style.setProperty("--swatch", color.base);
+    if (color.swatchImage) {
+      button.style.backgroundImage = `url("${color.swatchImage}")`;
+      button.style.backgroundSize = "cover";
+      button.style.backgroundPosition = "center";
+    } else {
+      button.style.backgroundImage = "none";
+    }
+    button.addEventListener("click", () => {
+      state.stripColor = color.id;
+      renderStripColorOptions();
+      drawPoster();
+      statusText.textContent = `Warna strip aktif: ${color.name}.`;
+    });
+    stripColorGrid.appendChild(button);
+  });
+}
+
+function renderTimerOptions() {
+  timerGrid.innerHTML = "";
+  timerLabel.textContent = `${state.captureDelay}s`;
+
+  timerPresets.forEach((seconds) => {
+    const button = document.createElement("button");
+    button.className = `timer-btn${seconds === state.captureDelay ? " active" : ""}`;
+    button.textContent = `${seconds}s`;
+    button.addEventListener("click", () => {
+      state.captureDelay = seconds;
+      renderTimerOptions();
+      statusText.textContent = seconds === 0 ? "Timer dimatikan." : `Timer aktif ${seconds} detik.`;
+    });
+    timerGrid.appendChild(button);
+  });
+}
+
 function renderStripOptions() {
-  stripGrid.parentElement.style.display = state.layout === "strip" ? "block" : "none";
   stripGrid.innerHTML = "";
 
   stripPresets.forEach((strip) => {
@@ -278,6 +390,8 @@ function renderStripOptions() {
       syncShotState();
       renderStripOptions();
       renderShotTray();
+      updateActiveStrip();
+      updateCameraAspect();
       drawPoster();
       statusText.textContent = `Strip aktif: ${strip.name}.`;
     });
@@ -297,8 +411,12 @@ function getActiveStripPreset() {
   return stripPresets.find((strip) => strip.id === state.stripStyle) || stripPresets[0];
 }
 
+function getActiveStripColor() {
+  return stripColorPresets.find((color) => color.id === state.stripColor) || stripColorPresets[0];
+}
+
 function getShotLimit() {
-  return state.layout === "strip" ? getActiveStripPreset().shots : 4;
+  return getActiveStripPreset().shots;
 }
 
 function syncShotState() {
@@ -328,32 +446,68 @@ function renderShotTray() {
   }
 }
 
-function drawPoster() {
-  const frame = state.selectedFrame;
-  const [bg, main, soft, detail] = frame.palette;
+function updateScreen() {
+  landingScreen.classList.toggle("active-screen", state.currentScreen === "landing");
+  layoutScreen.classList.toggle("active-screen", state.currentScreen === "layout");
+  cameraScreen.classList.toggle("active-screen", state.currentScreen === "camera");
+  updateActiveStrip();
+  updatePreviewVisibility();
+}
 
-  ctx.clearRect(0, 0, posterCanvas.width, posterCanvas.height);
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, posterCanvas.width, posterCanvas.height);
+function updateActiveStrip() {
+  const activeStrip = getActiveStripPreset();
+  const previewMarkup = renderStripPreviewMarkup(activeStrip);
 
-  const gradient = ctx.createLinearGradient(0, 0, posterCanvas.width, posterCanvas.height);
-  gradient.addColorStop(0, `${main}22`);
-  gradient.addColorStop(1, `${detail}66`);
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, posterCanvas.width, posterCanvas.height);
+  activeStripName.textContent = activeStrip.name;
+  selectedStripTitle.textContent = activeStrip.name;
+  cameraStripTitle.textContent = activeStrip.name;
+  selectedStripPreview.innerHTML = previewMarkup;
+  cameraStripPreview.innerHTML = previewMarkup;
+  updateCameraAspect();
+}
 
-  drawBackdrop(frame);
-  drawHeader(frame);
+function updateCameraAspect() {
+  const stripPreset = getActiveStripPreset();
+  if (stripPreset.shots === 3 || stripPreset.shots === 4) {
+    camera.style.aspectRatio = "16 / 9";
+    return;
+  }
+  const { innerW, slotH } = getStripMetrics(stripPreset);
+  camera.style.aspectRatio = `${Math.max(1, Math.round(innerW))} / ${Math.max(1, Math.round(slotH))}`;
+}
 
-  if (state.layout === "duo") {
-    drawDuoLayout(frame);
-  } else {
-    drawStripLayout(frame);
+function updatePreviewVisibility() {
+  const shouldShowCanvas = state.currentScreen === "camera" && (state.shots.length > 0 || Boolean(state.partnerImage));
+  posterCanvas.classList.toggle("hidden-canvas", !shouldShowCanvas);
+  previewEmptyState.classList.toggle("visible", !shouldShowCanvas);
+}
+
+async function runCountdown(seconds) {
+  for (let current = seconds; current >= 1; current -= 1) {
+    countdownOverlay.textContent = current;
+    countdownOverlay.classList.add("visible");
+    await wait(1000);
   }
 
-  drawFooter(frame);
-  drawStamps(frame);
-  drawStickerPack(frame);
+  countdownOverlay.textContent = "";
+  countdownOverlay.classList.remove("visible");
+}
+
+function wait(ms) {
+  return new Promise((resolve) => {
+    window.setTimeout(resolve, ms);
+  });
+}
+
+function drawPoster() {
+  updatePreviewVisibility();
+
+  if (state.currentScreen !== "camera" || (!state.shots.length && !state.partnerImage)) {
+    return;
+  }
+
+  ctx.clearRect(0, 0, posterCanvas.width, posterCanvas.height);
+  drawStripLayout(state.selectedFrame);
 }
 
 function drawBackdrop(frame) {
@@ -507,17 +661,8 @@ function drawShotColumn(x, y, w, h, frame) {
 
 function drawPhotoStrip(frame) {
   const stripPreset = getActiveStripPreset();
-  const stripY = 220;
-  const stripW = stripPreset.stripW;
-  const stripH = 1420;
-  const stripX = (posterCanvas.width - stripW) / 2;
-  const innerX = stripX + 30;
-  const innerY = stripY + stripPreset.topPad;
-  const innerW = stripW - 60;
-  const footerH = stripPreset.bottomPad;
-  const shotCount = stripPreset.shots;
-  const slotGap = stripPreset.gap;
-  const slotH = (stripH - stripPreset.topPad - footerH - slotGap * (shotCount - 1)) / shotCount;
+  const metrics = getStripMetrics(stripPreset);
+  const { stripX, stripY, stripW, stripH, innerX, innerY, innerW, slotH, shotCount, slotGap } = metrics;
   const timestamp = new Date().toLocaleString("id-ID", {
     day: "2-digit",
     month: "2-digit",
@@ -532,68 +677,259 @@ function drawPhotoStrip(frame) {
     drawMediaFrame(innerX, innerY + i * (slotH + slotGap), innerW, slotH, state.shots[i], frame, `POSE 0${i + 1}`, stripPreset.radius);
   }
 
+  drawStripThemeDecor(stripX, stripY, stripW, stripH, frame, metrics);
+
   ctx.save();
-  ctx.fillStyle = "#5f5754";
-  ctx.font = stripPreset.id === "korean" ? "700 20px Arial" : "700 24px Trebuchet MS";
   ctx.textAlign = "center";
-  ctx.fillText(stripPreset.id === "korean" ? "StarSnap Seoul" : "StarSnap Studio", stripX + stripW / 2, stripY + stripH - 52);
-  ctx.font = stripPreset.id === "korean" ? "15px Arial" : "18px Trebuchet MS";
-  ctx.fillText(timestamp, stripX + stripW / 2, stripY + stripH - 26);
-  if (stripPreset.id === "korean") {
-    ctx.font = "14px Arial";
-    ctx.fillStyle = "#8a8080";
-    ctx.fillText("photo memory booth", stripX + stripW / 2, stripY + 34);
+  if (frame.id !== "about-you") {
+    ctx.fillStyle = frame.accent;
+    ctx.font = "700 20px Arial";
+    ctx.fillText(frame.name, stripX + stripW / 2, stripY + stripH - 54);
+    ctx.fillStyle = "#7d6a67";
+    ctx.font = "15px Arial";
+    ctx.fillText(timestamp, stripX + stripW / 2, stripY + stripH - 26);
+    ctx.font = "13px Arial";
+    ctx.fillText("StarSnap booth", stripX + stripW / 2, stripY + 34);
   }
   ctx.textAlign = "left";
   ctx.restore();
 }
 
+function getStripMetrics(stripPreset) {
+  const stripW = stripPreset.stripW;
+  const innerW = stripW - 60;
+  const shotCount = stripPreset.shots;
+  const slotGap = stripPreset.gap;
+  const slotH = innerW * (stripPreset.photoAspect || 1.3);
+  const photoAreaHeight = shotCount * slotH + slotGap * (shotCount - 1);
+  const extraBottomPad = state.selectedFrame.id === "about-you" ? 74 : 0;
+  const bottomPad = stripPreset.bottomPad + extraBottomPad;
+  const stripH = stripPreset.topPad + bottomPad + photoAreaHeight;
+  const stripX = (posterCanvas.width - stripW) / 2;
+  const stripY = Math.max(48, (posterCanvas.height - stripH) / 2);
+  const innerX = stripX + 30;
+  const innerY = stripY + stripPreset.topPad;
+
+  return { stripX, stripY, stripW, stripH, innerX, innerY, innerW, slotH, shotCount, slotGap, bottomPad };
+}
+
 function drawStripShell(x, y, w, h, frame, stripPreset) {
-  const theme = frame.theme || "kawaii";
-  const accent = frame.palette[1];
-  const isKorean = stripPreset.id === "korean";
+  const stripColor = getActiveStripColor();
 
   ctx.save();
-  ctx.fillStyle = isKorean ? "#fffefe" : "#fffdfb";
-  roundRect(ctx, x, y, w, h, isKorean ? 24 : 36, true, false);
-  ctx.lineWidth = isKorean ? 2 : 4;
-  ctx.strokeStyle = isKorean ? "rgba(40, 32, 32, 0.10)" : `${frame.accent}30`;
-  roundRect(ctx, x, y, w, h, isKorean ? 24 : 36, false, true);
-
-  if (isKorean) {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.025)";
-    roundRect(ctx, x + 16, y + 16, w - 32, h - 32, 18, true, false);
+  ctx.fillStyle = stripColor.base;
+  roundRect(ctx, x, y, w, h, 18, true, false);
+  if (stripColor.decorate === "rainbow-stars") {
+    ctx.save();
+    roundRect(ctx, x, y, w, h, 18, false, false);
+    ctx.clip();
+    drawRainbowStarBackdrop(x, y, w, h);
     ctx.restore();
+  }
+  if (stripColor.image?.complete && stripColor.image.naturalWidth) {
+    ctx.save();
+    roundRect(ctx, x, y, w, h, 18, false, false);
+    ctx.clip();
+    if (stripColor.pattern) {
+      drawStripPattern(stripColor.image, x, y, w, h);
+    } else {
+      drawImageCover(stripColor.image, x, y, w, h);
+    }
+    ctx.restore();
+  }
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = stripColor.edge;
+  roundRect(ctx, x, y, w, h, 18, false, true);
+  ctx.fillStyle = stripColor.inner;
+  roundRect(ctx, x + 12, y + 12, w - 24, h - 24, 14, true, false);
+  ctx.restore();
+}
+
+function drawStripPattern(image, x, y, w, h) {
+  const scale = Math.max(2.8, 140 / Math.max(image.naturalWidth, 1));
+  const tileW = image.naturalWidth * scale;
+  const tileH = image.naturalHeight * scale;
+
+  for (let drawY = y; drawY < y + h + tileH; drawY += tileH * 0.9) {
+    for (let drawX = x; drawX < x + w + tileW; drawX += tileW * 0.9) {
+      ctx.drawImage(image, drawX, drawY, tileW, tileH);
+    }
+  }
+}
+
+function drawRainbowStarBackdrop(x, y, w, h) {
+  const gradient = ctx.createLinearGradient(x, y, x + w, y + h);
+  gradient.addColorStop(0, "#ff7eb6");
+  gradient.addColorStop(0.28, "#ffb86b");
+  gradient.addColorStop(0.52, "#fff07c");
+  gradient.addColorStop(0.74, "#88e3ff");
+  gradient.addColorStop(1, "#c8a5ff");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(x, y, w, h);
+
+  const stars = [
+    [x + w * 0.16, y + h * 0.12, 16],
+    [x + w * 0.76, y + h * 0.18, 14],
+    [x + w * 0.28, y + h * 0.46, 12],
+    [x + w * 0.82, y + h * 0.6, 15],
+    [x + w * 0.22, y + h * 0.82, 13],
+    [x + w * 0.68, y + h * 0.86, 11],
+  ];
+
+  stars.forEach(([starX, starY, size]) => {
+    drawShape("star", starX, starY, size, "rgba(255,255,255,0.92)");
+    drawShape("spark", starX + size * 0.9, starY - size * 0.3, Math.max(7, size * 0.45), "rgba(255,255,255,0.78)");
+  });
+}
+
+function drawStripThemeDecor(x, y, w, h, frame, metrics) {
+  const themeDecor = {
+    shinchan: () => {
+      drawStickerLabel("mood on", x + w / 2, y + 86, -0.04, frame.palette[2], frame.accent, "soft");
+      drawShape("burst", x + 38, y + 94, 18, frame.accent);
+      drawShape("star", x + w - 34, y + h - 114, 16, frame.accent);
+    },
+    "cat-club": () => {
+      drawStickerLabel("meow", x + w / 2, y + 84, -0.04, frame.palette[2], frame.accent, "soft");
+      drawShape("heart", x + 40, y + 100, 14, frame.accent);
+      drawShape("dot", x + w - 38, y + h - 118, 10, frame.accent);
+    },
+    "flower-note": () => {
+      drawStickerLabel("bloom", x + w / 2, y + 84, -0.04, frame.palette[2], frame.accent, "soft");
+      drawShape("petal", x + 40, y + 100, 16, frame.accent);
+      drawShape("petal", x + w - 36, y + h - 118, 14, frame.accent);
+    },
+    "butterfly-air": () => {
+      drawStickerLabel("flutter", x + w / 2, y + 84, -0.04, frame.palette[2], frame.accent, "sharp");
+      drawShape("spark", x + 38, y + 98, 14, frame.accent);
+      drawShape("star", x + w - 36, y + h - 118, 12, frame.accent);
+    },
+    "about-you": () => {
+      drawAboutYouStickerPack(metrics);
+    },
+    "kitty-pop": () => {
+      drawStickerLabel("sweet pop", x + w / 2, y + 84, -0.04, frame.palette[2], frame.accent, "soft");
+      drawShape("heart", x + 40, y + 100, 14, frame.accent);
+      drawShape("cloud", x + w - 38, y + h - 120, 12, frame.accent);
+    },
+  };
+
+  themeDecor[frame.id]?.();
+}
+
+function drawAboutYouStickerPack(metrics) {
+  const { stripX, stripY, stripW, stripH, innerX, innerY, innerW, slotH, shotCount, slotGap, bottomPad } = metrics;
+  const slotTopAt = (index) => innerY + Math.min(index, shotCount - 1) * (slotH + slotGap);
+  const firstSlotTop = slotTopAt(0);
+  const secondSlotTop = slotTopAt(1);
+  const thirdSlotTop = slotTopAt(2);
+  const footerCenterY = stripY + stripH - bottomPad * 0.48;
+  const leftX = innerX + innerW * 0.16;
+  const rightX = innerX + innerW * 0.82;
+  const centerRightX = innerX + innerW * 0.73;
+  const titleX = stripX + stripW * 0.58;
+  const clapperBox = Math.min(innerW * 0.6, slotH * 0.34);
+  const carMaxWidth = innerW * 0.92;
+  const carMaxHeight = slotH * 0.34;
+  const footerMaxWidth = innerW * 0.76;
+  const footerMaxHeight = slotH * 0.3;
+  const titleBox = Math.min(stripW * 1.5, bottomPad * 2.7);
+  const footerStickerMaxWidth = innerW * 0.9;
+  const footerStickerMaxHeight = slotH * 0.38;
+
+  drawStickerImageFit(
+    aboutYouStickerAssets.clapper,
+    leftX,
+    firstSlotTop + slotH * 0.08,
+    clapperBox,
+    clapperBox,
+    -0.14
+  );
+  drawStickerImageFit(
+    aboutYouStickerAssets.footer,
+    leftX,
+    thirdSlotTop + slotH * 0.83,
+    carMaxWidth,
+    carMaxHeight,
+    0.08
+  );
+  drawStickerImageFit(
+    aboutYouStickerAssets.car,
+    rightX,
+    secondSlotTop + slotH * 0.06,
+    carMaxWidth,
+    carMaxHeight,
+    -0.08
+  );
+  drawStickerImageFit(
+    aboutYouStickerAssets.bunny,
+    titleX,
+    footerCenterY,
+    titleBox,
+    bottomPad * 1.02,
+    -0.02
+  );
+}
+
+function drawStickerImage(image, centerX, centerY, width, height, rotation = 0, cleanupWhite = false) {
+  if (!image?.complete || !image.naturalWidth) {
     return;
   }
 
-  if (theme === "kawaii") {
-    ctx.fillStyle = `${accent}10`;
-    roundRect(ctx, x + 18, y + 18, w - 36, h - 36, 30, true, false);
-  } else if (theme === "anime") {
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = `${accent}75`;
-    ctx.beginPath();
-    ctx.moveTo(x + 24, y + 22);
-    ctx.lineTo(x + 136, y + 22);
-    ctx.moveTo(x + 24, y + 22);
-    ctx.lineTo(x + 24, y + 132);
-    ctx.moveTo(x + w - 24, y + h - 22);
-    ctx.lineTo(x + w - 136, y + h - 22);
-    ctx.moveTo(x + w - 24, y + h - 22);
-    ctx.lineTo(x + w - 24, y + h - 132);
-    ctx.stroke();
-  } else if (theme === "retro") {
-    ctx.setLineDash([12, 12]);
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = `${accent}88`;
-    roundRect(ctx, x + 18, y + 18, w - 36, h - 36, 30, false, true);
-    ctx.setLineDash([]);
+  const renderImage = cleanupWhite ? removeNearWhiteBackground(image) : image;
+
+  ctx.save();
+  ctx.translate(centerX, centerY);
+  ctx.rotate(rotation);
+  ctx.drawImage(renderImage, -width / 2, -height / 2, width, height);
+  ctx.restore();
+}
+
+function drawStickerImageFit(image, centerX, centerY, maxWidth, maxHeight, rotation = 0, cleanupWhite = false) {
+  if (!image?.complete || !image.naturalWidth || !image.naturalHeight) {
+    return;
   }
 
-  ctx.fillStyle = `${accent}14`;
-  roundRect(ctx, x + 24, y + 24, w - 48, stripPreset.topPad - 24, 24, true, false);
-  ctx.restore();
+  const scale = Math.min(maxWidth / image.naturalWidth, maxHeight / image.naturalHeight);
+  drawStickerImage(
+    image,
+    centerX,
+    centerY,
+    image.naturalWidth * scale,
+    image.naturalHeight * scale,
+    rotation,
+    cleanupWhite
+  );
+}
+
+function removeNearWhiteBackground(image) {
+  const canvas = document.createElement("canvas");
+  canvas.width = image.naturalWidth || image.width;
+  canvas.height = image.naturalHeight || image.height;
+  const context = canvas.getContext("2d");
+  context.drawImage(image, 0, 0);
+
+  const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+
+  for (let i = 0; i < data.length; i += 4) {
+    const red = data[i];
+    const green = data[i + 1];
+    const blue = data[i + 2];
+    const alpha = data[i + 3];
+
+    if (alpha === 0) {
+      continue;
+    }
+
+    const isNearWhite = red > 238 && green > 238 && blue > 238;
+    if (isNearWhite) {
+      data[i + 3] = 0;
+    }
+  }
+
+  context.putImageData(imageData, 0, 0);
+  return canvas;
 }
 
 function drawMediaFrame(x, y, w, h, source, frame, label, radius = 30) {
@@ -964,11 +1300,28 @@ function roundRect(context, x, y, width, height, radius, fill, stroke) {
 
 function downloadPoster() {
   drawPoster();
+  const stripPreset = getActiveStripPreset();
+  const { stripX, stripY, stripW, stripH } = getStripMetrics(stripPreset);
+  const exportCanvas = document.createElement("canvas");
+  exportCanvas.width = Math.round(stripW);
+  exportCanvas.height = Math.round(stripH);
+  const exportCtx = exportCanvas.getContext("2d");
+  exportCtx.drawImage(
+    posterCanvas,
+    stripX,
+    stripY,
+    stripW,
+    stripH,
+    0,
+    0,
+    exportCanvas.width,
+    exportCanvas.height
+  );
   const link = document.createElement("a");
-  link.href = posterCanvas.toDataURL("image/png");
-  link.download = `starsnap-${state.selectedFrame.id}.png`;
+  link.href = exportCanvas.toDataURL("image/png");
+  link.download = `starsnap-${state.selectedFrame.id}-${state.stripStyle}.png`;
   link.click();
-  statusText.textContent = "Poster PNG berhasil di-download.";
+  statusText.textContent = "Strip PNG berhasil di-download.";
 }
 
 init();

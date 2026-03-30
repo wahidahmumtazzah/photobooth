@@ -46,6 +46,14 @@
 
       <div id="stripGrid" class="layout-gallery"></div>
 
+      <div class="selected-strip-panel">
+        <div>
+          <p class="eyebrow">Selected Strip</p>
+          <strong id="selectedStripTitle">Korean 4</strong>
+        </div>
+        <div id="selectedStripPreview" class="selected-strip-preview"></div>
+      </div>
+
       <div class="flow-actions">
         <button id="backToLandingBtn">Back</button>
         <button id="continueToCameraBtn" class="primary">Continue</button>
@@ -103,9 +111,17 @@
           <div id="filterGrid" class="filter-grid"></div>
         </section>
 
+        <section class="panel-card">
+          <div class="section-head">
+            <h2>5. Warna Strip</h2>
+            <span>Cute</span>
+          </div>
+          <div id="stripColorGrid" class="color-grid"></div>
+        </section>
+
         <section class="panel-card shot-card">
           <div class="section-head">
-            <h2>5. Shots</h2>
+            <h2>6. Shots</h2>
             <span id="shotCounter">0 / 4</span>
           </div>
           <div id="shotTray" class="shot-tray"></div>
@@ -126,7 +142,19 @@
           <span id="activeStripName" class="preview-chip">Korean 4</span>
         </div>
 
+        <div class="active-strip-panel">
+          <div>
+            <p class="eyebrow">Strip Preview</p>
+            <strong id="cameraStripTitle">Korean 4</strong>
+          </div>
+          <div id="cameraStripPreview" class="selected-strip-preview compact-strip-preview"></div>
+        </div>
+
         <div class="canvas-wrap">
+          <div id="previewEmptyState" class="preview-empty-state">
+            <strong>Preview belum muncul</strong>
+            <span>Ambil foto dulu atau upload partner untuk lihat hasil strip.</span>
+          </div>
           <canvas id="posterCanvas" width="1200" height="1800"></canvas>
         </div>
 
