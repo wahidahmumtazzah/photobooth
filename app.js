@@ -53,6 +53,15 @@ const framePresets = [
     accent: "#ff4f8d",
     stamp: ["heart", "spark", "cloud"],
   },
+  {
+    id: "barbie",
+    name: "Barbie",
+    theme: "kawaii",
+    desc: "hot pink doll sticker vibe",
+    palette: ["#fff4fb", "#ff5fa8", "#ffd2ea", "#fff0f8"],
+    accent: "#ff3f93",
+    stamp: ["heart", "spark", "star"],
+  },
 ];
 
 const state = {
@@ -76,6 +85,14 @@ const aboutYouStickerAssets = {
   footer: loadSticker("./assets/stickers/about you 4.png"),
 };
 
+const barbieStickerAssets = {
+  one: loadSticker("./assets/stickers/barbie 1.png"),
+  two: loadSticker("./assets/stickers/barbie 2.png"),
+  three: loadSticker("./assets/stickers/barbie 3.png"),
+  four: loadSticker("./assets/stickers/barbie 4.png"),
+  five: loadSticker("./assets/stickers/barbie 5.png"),
+};
+
 const stripBackgroundAssets = {
   kiss: loadSticker("./assets/latar/kiss.jpg"),
   kotakMerah: loadSticker("./assets/latar/latar kotak merah.jpg"),
@@ -85,13 +102,15 @@ const stripBackgroundAssets = {
   zebra: loadSticker("./assets/latar/zebra.jpg"),
 };
 
+const ABOUT_YOU_EXTRA_BOTTOM_PAD = 126;
+
 const filterPresets = [
   { id: "none", name: "Original", css: "none" },
-  { id: "soft", name: "Soft Glow", css: "brightness(1.04) saturate(1.05) contrast(0.94)" },
-  { id: "warm", name: "Warm Pop", css: "sepia(0.18) saturate(1.18) hue-rotate(-8deg) brightness(1.02)" },
-  { id: "cool", name: "Cool Blue", css: "saturate(0.95) contrast(1.08) hue-rotate(10deg)" },
-  { id: "mono", name: "Mono Film", css: "grayscale(1) contrast(1.12) brightness(1.04)" },
-  { id: "dreamy", name: "Dreamy", css: "brightness(1.08) saturate(0.9) contrast(0.92) blur(0.4px)" },
+  { id: "soft", name: "Soft Glow", css: "brightness(1.22) saturate(0.92) contrast(0.9) blur(0.5px)" },
+  { id: "warm", name: "Warm Pop", css: "sepia(0.35) saturate(1.4) hue-rotate(-12deg) brightness(1.08) contrast(1.02)" },
+  { id: "cool", name: "B&W", css: "grayscale(1) contrast(1.12) brightness(1.04)" },
+  { id: "mono", name: "Vintage", css: "sepia(0.42) saturate(0.88) contrast(0.94) brightness(1.06) hue-rotate(-8deg)" },
+  { id: "dreamy", name: "Dreamy", css: "brightness(1.14) saturate(0.82) contrast(0.86) blur(0.8px)" },
 ];
 const timerPresets = [0, 3, 5, 10];
 const stripColorPresets = [
@@ -114,10 +133,12 @@ const stripColorPresets = [
   { id: "strawberry", name: "Berry", base: "#ffd7df", edge: "rgba(217, 89, 132, 0.28)", inner: "rgba(255, 255, 255, 0.18)" },
 ];
 const stripPresets = [
-  { id: "korean", name: "Korean 4", desc: "slim clean booth strip", shots: 4, stripW: 500, topPad: 64, bottomPad: 132, gap: 18, radius: 22, photoAspect: 0.76 },
-  { id: "classic", name: "Classic 4", desc: "4 frame tall strip", shots: 4, stripW: 540, topPad: 78, bottomPad: 132, gap: 22, radius: 28, photoAspect: 0.76 },
-  { id: "airy", name: "Airy 3", desc: "3 frame lebih lega", shots: 3, stripW: 590, topPad: 88, bottomPad: 138, gap: 28, radius: 30, photoAspect: 0.76 },
-  { id: "mini", name: "Mini 2", desc: "2 frame besar", shots: 2, stripW: 450, topPad: 92, bottomPad: 122, gap: 30, radius: 30, photoAspect: 1.38 },
+  { id: "posebox", name: "Pose Box", desc: "1 pose . 4x6 portrait", shots: 1, stripW: 404, topPad: 18, bottomPad: 122, gap: 18, radius: 0, photoAspect: 1.18, targetStripAspect: 1.5, accent: "#3e5ed9", surface: "linear-gradient(180deg, #efe2c8 0%, #dcc29d 100%)", previewTone: "post" },
+  { id: "korean", name: "Korean 4", desc: "4 pose . slim clean booth strip", shots: 4, stripW: 340, topPad: 64, bottomPad: 72, gap: 18, radius: 0, photoAspect: 9 / 16, targetStripAspect: 2.86, accent: "#ff6b9a", surface: "linear-gradient(180deg, #ffe0eb 0%, #ffc7d9 100%)", previewTone: "soft" },
+  { id: "airy", name: "Airy 3", desc: "3 pose . frame lebih lega", shots: 3, stripW: 410, topPad: 88, bottomPad: 84, gap: 28, radius: 0, photoAspect: 9 / 16, targetStripAspect: 2.86, accent: "#ff9855", surface: "linear-gradient(180deg, #ffe7d6 0%, #ffd0b0 100%)", previewTone: "hero" },
+  { id: "photostudio", name: "Photo Studio", desc: "4 pose . 2x2 grid 3:4", shots: 4, stripW: 404, topPad: 18, bottomPad: 92, gap: 12, columnGap: 12, radius: 0, photoAspect: 4 / 3, targetStripAspect: 1.24, accent: "#f08cab", surface: "linear-gradient(180deg, #ffd5e2 0%, #f3aac0 100%)", previewTone: "soft", variant: "split-columns", squareSlots: true },
+  { id: "studio6", name: "Studio 6", desc: "6 pose . 4x6 grid", shots: 6, stripW: 404, topPad: 18, bottomPad: 122, gap: 10, columnGap: 10, radius: 0, photoAspect: 0.82, targetStripAspect: 1.5, accent: "#5b7fff", surface: "linear-gradient(180deg, #dde6ff 0%, #c4d4ff 100%)", previewTone: "sky", variant: "split-columns" },
+  { id: "mini", name: "Mini 2", desc: "2 pose . frame besar", shots: 2, stripW: 330, topPad: 92, bottomPad: 122, gap: 30, radius: 0, photoAspect: 1.38, accent: "#6b5f72", surface: "linear-gradient(180deg, #e6dfe9 0%, #cfc3d4 100%)", previewTone: "dark" },
 ];
 
 const camera = document.getElementById("camera");
@@ -125,6 +146,7 @@ const startCameraBtn = document.getElementById("startCameraBtn");
 const captureBtn = document.getElementById("captureBtn");
 const resetBtn = document.getElementById("resetBtn");
 const downloadBtn = document.getElementById("downloadBtn");
+const continueToFrameBtn = document.getElementById("continueToFrameBtn");
 const partnerUpload = document.getElementById("partnerUpload");
 const frameGrid = document.getElementById("frameGrid");
 const filterGrid = document.getElementById("filterGrid");
@@ -138,17 +160,24 @@ const startEditingBtn = document.getElementById("startEditingBtn");
 const continueToCameraBtn = document.getElementById("continueToCameraBtn");
 const backToLandingBtn = document.getElementById("backToLandingBtn");
 const backToLayoutBtn = document.getElementById("backToLayoutBtn");
+const backToCameraBtn = document.getElementById("backToCameraBtn");
 const timerLabel = document.getElementById("timerLabel");
 const activeStripName = document.getElementById("activeStripName");
+const frameActiveStripName = document.getElementById("frameActiveStripName");
 const selectedStripTitle = document.getElementById("selectedStripTitle");
 const selectedStripPreview = document.getElementById("selectedStripPreview");
 const cameraStripTitle = document.getElementById("cameraStripTitle");
 const cameraStripPreview = document.getElementById("cameraStripPreview");
+const frameStripTitle = document.getElementById("frameStripTitle");
+const frameStripPreview = document.getElementById("frameStripPreview");
 const countdownOverlay = document.getElementById("countdownOverlay");
 const previewEmptyState = document.getElementById("previewEmptyState");
+const cameraPreviewMirror = document.getElementById("cameraPreviewMirror");
+const statusTexts = Array.from(document.querySelectorAll(".status-text"));
 const landingScreen = document.getElementById("landingScreen");
 const layoutScreen = document.getElementById("layoutScreen");
 const cameraScreen = document.getElementById("cameraScreen");
+const frameScreen = document.getElementById("frameScreen");
 const posterCanvas = document.getElementById("posterCanvas");
 const ctx = posterCanvas.getContext("2d");
 
@@ -163,6 +192,7 @@ function init() {
   renderShotTray();
   updateScreen();
   updateCameraAspect();
+  applyCameraFilter();
   drawPoster();
 }
 
@@ -170,7 +200,7 @@ function loadSticker(src) {
   const image = new Image();
   image.src = src;
   image.onload = () => {
-    if (state.currentScreen === "camera") {
+    if (state.currentScreen === "camera" || state.currentScreen === "frame") {
       drawPoster();
     }
   };
@@ -182,7 +212,7 @@ function bindEvents() {
   captureBtn.addEventListener("click", captureShot);
   resetBtn.addEventListener("click", resetShots);
   downloadBtn.addEventListener("click", downloadPoster);
-  partnerUpload.addEventListener("change", handlePartnerUpload);
+  partnerUpload?.addEventListener("change", handlePartnerUpload);
   startEditingBtn?.addEventListener("click", () => {
     state.currentScreen = "layout";
     updateScreen();
@@ -190,7 +220,7 @@ function bindEvents() {
   continueToCameraBtn?.addEventListener("click", () => {
     state.currentScreen = "camera";
     updateScreen();
-    statusText.textContent = `Strip ${getActiveStripPreset().name} siap. Nyalakan kamera untuk mulai.`;
+    setStatusText(`Strip ${getActiveStripPreset().name} siap. Nyalakan kamera untuk mulai.`);
   });
   backToLandingBtn?.addEventListener("click", () => {
     state.currentScreen = "landing";
@@ -200,11 +230,21 @@ function bindEvents() {
     state.currentScreen = "layout";
     updateScreen();
   });
+  continueToFrameBtn?.addEventListener("click", () => {
+    state.currentScreen = "frame";
+    updateScreen();
+    setStatusText("Atur frame, warna, dan stiker sebelum download.");
+  });
+  backToCameraBtn?.addEventListener("click", () => {
+    state.currentScreen = "camera";
+    updateScreen();
+    setStatusText("Lanjut ambil foto atau reset kalau mau ulang dari awal.");
+  });
 }
 
 async function startCamera() {
   if (!navigator.mediaDevices?.getUserMedia) {
-    statusText.textContent = "Browser ini tidak mendukung akses kamera.";
+    setStatusText("Browser ini tidak mendukung akses kamera.");
     return;
   }
 
@@ -218,10 +258,14 @@ async function startCamera() {
       audio: false,
     });
     camera.srcObject = state.stream;
+    if (cameraPreviewMirror) {
+      cameraPreviewMirror.srcObject = state.stream;
+    }
     camera.style.transform = "scaleX(-1)";
-    statusText.textContent = "Kamera aktif. Ambil pose pertama kapan saja.";
+    applyCameraFilter();
+    setStatusText("Kamera aktif. Ambil pose pertama kapan saja.");
   } catch (error) {
-    statusText.textContent = "Izin kamera ditolak atau kamera tidak tersedia.";
+    setStatusText("Izin kamera ditolak atau kamera tidak tersedia.");
   }
 }
 
@@ -231,13 +275,13 @@ async function captureShot() {
   }
 
   if (!camera.videoWidth || !camera.videoHeight) {
-    statusText.textContent = "Nyalakan kamera dulu sebelum ambil foto.";
+    setStatusText("Nyalakan kamera dulu sebelum ambil foto.");
     return;
   }
 
   const shotLimit = getShotLimit();
   if (state.shots.length >= shotLimit) {
-    statusText.textContent = `Maksimal ${shotLimit} shot. Reset kalau mau ambil ulang.`;
+    setStatusText(`Maksimal ${shotLimit} shot. Reset kalau mau ambil ulang.`);
     return;
   }
 
@@ -253,13 +297,31 @@ async function captureShot() {
   const activeStrip = getActiveStripPreset();
   const { innerW, slotH } = getStripMetrics(activeStrip);
   const captureWidth = 900;
-  const captureHeight = activeStrip.shots === 3 || activeStrip.shots === 4
+  const captureHeight = isWideStripPreset(activeStrip)
     ? Math.round(captureWidth * (9 / 16))
     : Math.round(captureWidth * (slotH / innerW));
   captureCanvas.width = captureWidth;
   captureCanvas.height = captureHeight;
   const captureCtx = captureCanvas.getContext("2d");
-  captureCtx.drawImage(camera, 0, 0, captureCanvas.width, captureCanvas.height);
+  captureCtx.filter = getActiveFilter();
+  if (isWideStripPreset(activeStrip)) {
+    drawVideoFrameCover(
+      captureCtx,
+      camera,
+      0,
+      0,
+      captureCanvas.width,
+      captureCanvas.height,
+      { flipX: true }
+    );
+  } else {
+    captureCtx.save();
+    captureCtx.translate(captureCanvas.width, 0);
+    captureCtx.scale(-1, 1);
+    captureCtx.drawImage(camera, 0, 0, captureCanvas.width, captureCanvas.height);
+    captureCtx.restore();
+  }
+  captureCtx.filter = "none";
 
   const src = captureCanvas.toDataURL("image/png");
   const image = new Image();
@@ -267,14 +329,20 @@ async function captureShot() {
   state.shots.push({ src, image });
   renderShotTray();
   drawPoster();
-  statusText.textContent = `Shot ${state.shots.length} tersimpan.`;
+  if (state.shots.length >= shotLimit) {
+    state.currentScreen = "frame";
+    updateScreen();
+    setStatusText("Semua shot sudah terisi. Sekarang pilih frame, warna, dan stiker.");
+    return;
+  }
+  setStatusText(`Shot ${state.shots.length} tersimpan.`);
 }
 
 function resetShots() {
   state.shots = [];
   renderShotTray();
   drawPoster();
-  statusText.textContent = "Semua shot di-reset.";
+  setStatusText("Semua shot di-reset.");
 }
 
 function handlePartnerUpload(event) {
@@ -289,7 +357,7 @@ function handlePartnerUpload(event) {
     image.onload = () => {
       state.partnerImage = image;
       drawPoster();
-      statusText.textContent = `Partner image "${file.name}" sudah dipasang.`;
+      setStatusText(`Partner image "${file.name}" sudah dipasang.`);
     };
     image.src = reader.result;
   };
@@ -307,7 +375,7 @@ function renderFrameOptions() {
       state.selectedFrame = frame;
       renderFrameOptions();
       drawPoster();
-      statusText.textContent = `Frame aktif: ${frame.name}.`;
+      setStatusText(`Frame aktif: ${frame.name}.`);
     });
     frameGrid.appendChild(button);
   });
@@ -323,8 +391,9 @@ function renderFilterOptions() {
     button.addEventListener("click", () => {
       state.filter = filter.id;
       renderFilterOptions();
+      applyCameraFilter();
       drawPoster();
-      statusText.textContent = `Filter aktif: ${filter.name}.`;
+      setStatusText(`Filter aktif: ${filter.name}.`);
     });
     filterGrid.appendChild(button);
   });
@@ -349,7 +418,7 @@ function renderStripColorOptions() {
       state.stripColor = color.id;
       renderStripColorOptions();
       drawPoster();
-      statusText.textContent = `Warna strip aktif: ${color.name}.`;
+      setStatusText(`Warna strip aktif: ${color.name}.`);
     });
     stripColorGrid.appendChild(button);
   });
@@ -366,7 +435,7 @@ function renderTimerOptions() {
     button.addEventListener("click", () => {
       state.captureDelay = seconds;
       renderTimerOptions();
-      statusText.textContent = seconds === 0 ? "Timer dimatikan." : `Timer aktif ${seconds} detik.`;
+      setStatusText(seconds === 0 ? "Timer dimatikan." : `Timer aktif ${seconds} detik.`);
     });
     timerGrid.appendChild(button);
   });
@@ -378,12 +447,14 @@ function renderStripOptions() {
   stripPresets.forEach((strip) => {
     const button = document.createElement("button");
     button.className = `layout-card${strip.id === state.stripStyle ? " active" : ""}`;
+    button.style.setProperty("--layout-card-accent", strip.accent || "#ff7ca7");
+    button.style.setProperty("--layout-card-surface", strip.surface || "linear-gradient(180deg, #fffefe 0%, #fff4f7 100%)");
     button.innerHTML = `
       <div class="layout-card-preview">
         ${renderStripPreviewMarkup(strip)}
       </div>
       <h3>${strip.name}</h3>
-      <p>${strip.shots} pose . ${strip.desc}</p>
+      <p>${strip.desc}</p>
     `;
     button.addEventListener("click", () => {
       state.stripStyle = strip.id;
@@ -393,17 +464,46 @@ function renderStripOptions() {
       updateActiveStrip();
       updateCameraAspect();
       drawPoster();
-      statusText.textContent = `Strip aktif: ${strip.name}.`;
+      setStatusText(`Strip aktif: ${strip.name}.`);
     });
     stripGrid.appendChild(button);
   });
 }
 
 function renderStripPreviewMarkup(strip) {
-  const toneClass = strip.id === "korean" ? "soft" : strip.id === "mini" ? "dark" : strip.id === "airy" ? "hero" : "";
+  if (strip.variant === "double-copy") {
+    const toneClass = strip.previewTone || "";
+    const columnMarkup = Array.from({ length: strip.shots }, (_, index) => {
+      const extraClass = index === 0 ? ` ${toneClass}` : "";
+      return `<span class="layout-mini-slot${extraClass}"></span>`;
+    }).join("");
+    return `
+      <div class="layout-mini-double">
+        <div class="layout-mini-column">${columnMarkup}<span class="layout-mini-footer">pose box</span></div>
+        <div class="layout-mini-column">${columnMarkup}<span class="layout-mini-footer">pose box</span></div>
+      </div>
+    `;
+  }
+  const toneClass = strip.previewTone || "";
+  const slotClass = strip.squareSlots ? " square" : "";
+  if (strip.variant === "split-columns") {
+    const rows = Math.ceil(strip.shots / 2);
+    const buildColumn = (startIndex) =>
+      Array.from({ length: rows }, (_, offset) => {
+        const index = startIndex + offset;
+        const extraClass = index === 0 ? ` ${toneClass}` : "";
+        return index < strip.shots ? `<span class="layout-mini-slot${extraClass}${slotClass}"></span>` : "";
+      }).join("");
+    return `
+      <div class="layout-mini-double split-columns">
+        <div class="layout-mini-column split-columns">${buildColumn(0)}</div>
+        <div class="layout-mini-column split-columns">${buildColumn(rows)}</div>
+      </div>
+    `;
+  }
   return Array.from({ length: strip.shots }, (_, index) => {
-    const extraClass = index === 0 && strip.id !== "classic" ? ` ${toneClass}` : "";
-    return `<span class="layout-mini-slot${extraClass}"></span>`;
+    const extraClass = index === 0 ? ` ${toneClass}` : "";
+    return `<span class="layout-mini-slot${extraClass}${slotClass}"></span>`;
   }).join("");
 }
 
@@ -413,6 +513,14 @@ function getActiveStripPreset() {
 
 function getActiveStripColor() {
   return stripColorPresets.find((color) => color.id === state.stripColor) || stripColorPresets[0];
+}
+
+function isWideStripPreset(stripPreset) {
+  return stripPreset.shots >= 3;
+}
+
+function isSplitColumnStripPreset(stripPreset) {
+  return stripPreset.variant === "split-columns";
 }
 
 function getShotLimit() {
@@ -428,6 +536,7 @@ function syncShotState() {
 
 function renderShotTray() {
   shotTray.innerHTML = "";
+  shotTray.classList.toggle("split-columns", isSplitColumnStripPreset(getActiveStripPreset()));
   const shotLimit = getShotLimit();
   shotCounter.textContent = `${state.shots.length} / ${shotLimit}`;
 
@@ -450,6 +559,7 @@ function updateScreen() {
   landingScreen.classList.toggle("active-screen", state.currentScreen === "landing");
   layoutScreen.classList.toggle("active-screen", state.currentScreen === "layout");
   cameraScreen.classList.toggle("active-screen", state.currentScreen === "camera");
+  frameScreen.classList.toggle("active-screen", state.currentScreen === "frame");
   updateActiveStrip();
   updatePreviewVisibility();
 }
@@ -458,17 +568,89 @@ function updateActiveStrip() {
   const activeStrip = getActiveStripPreset();
   const previewMarkup = renderStripPreviewMarkup(activeStrip);
 
-  activeStripName.textContent = activeStrip.name;
-  selectedStripTitle.textContent = activeStrip.name;
-  cameraStripTitle.textContent = activeStrip.name;
-  selectedStripPreview.innerHTML = previewMarkup;
-  cameraStripPreview.innerHTML = previewMarkup;
+  if (activeStripName) {
+    activeStripName.textContent = activeStrip.name;
+  }
+  frameActiveStripName.textContent = activeStrip.name;
+  if (selectedStripTitle) {
+    selectedStripTitle.textContent = activeStrip.name;
+  }
+  if (cameraStripTitle) {
+    cameraStripTitle.textContent = activeStrip.name;
+  }
+  if (frameStripTitle) {
+    frameStripTitle.textContent = activeStrip.name;
+  }
+  if (selectedStripPreview) {
+    selectedStripPreview.innerHTML = previewMarkup;
+  }
+  if (cameraStripPreview) {
+    cameraStripPreview.innerHTML = previewMarkup;
+  }
+  if (frameStripPreview) {
+    frameStripPreview.innerHTML = previewMarkup;
+  }
+  if (isSplitColumnStripPreset(activeStrip)) {
+    if (selectedStripPreview) {
+      selectedStripPreview.style.width = "120px";
+      selectedStripPreview.style.minWidth = "120px";
+      selectedStripPreview.style.aspectRatio = "1 / 1.08";
+    }
+    if (cameraStripPreview) {
+      cameraStripPreview.style.width = "110px";
+      cameraStripPreview.style.minWidth = "110px";
+      cameraStripPreview.style.aspectRatio = "1 / 1.08";
+    }
+    if (frameStripPreview) {
+      frameStripPreview.style.width = "110px";
+      frameStripPreview.style.minWidth = "110px";
+      frameStripPreview.style.aspectRatio = "1 / 1.08";
+    }
+    posterCanvas.style.width = "auto";
+    posterCanvas.style.height = "min(62vh, 560px)";
+  } else if (activeStrip.shots === 3 || activeStrip.shots === 4) {
+    if (selectedStripPreview) {
+      selectedStripPreview.style.width = "104px";
+      selectedStripPreview.style.minWidth = "104px";
+      selectedStripPreview.style.aspectRatio = "";
+    }
+    if (cameraStripPreview) {
+      cameraStripPreview.style.width = "92px";
+      cameraStripPreview.style.minWidth = "92px";
+      cameraStripPreview.style.aspectRatio = "";
+    }
+    if (frameStripPreview) {
+      frameStripPreview.style.width = "92px";
+      frameStripPreview.style.minWidth = "92px";
+      frameStripPreview.style.aspectRatio = "";
+    }
+    posterCanvas.style.width = "auto";
+    posterCanvas.style.height = "min(68vh, 680px)";
+  } else {
+    if (selectedStripPreview) {
+      selectedStripPreview.style.width = "";
+      selectedStripPreview.style.minWidth = "";
+      selectedStripPreview.style.aspectRatio = "";
+    }
+    if (cameraStripPreview) {
+      cameraStripPreview.style.width = "";
+      cameraStripPreview.style.minWidth = "";
+      cameraStripPreview.style.aspectRatio = "";
+    }
+    if (frameStripPreview) {
+      frameStripPreview.style.width = "";
+      frameStripPreview.style.minWidth = "";
+      frameStripPreview.style.aspectRatio = "";
+    }
+    posterCanvas.style.width = "auto";
+    posterCanvas.style.height = "min(68vh, 680px)";
+  }
   updateCameraAspect();
 }
 
 function updateCameraAspect() {
   const stripPreset = getActiveStripPreset();
-  if (stripPreset.shots === 3 || stripPreset.shots === 4) {
+  if (isWideStripPreset(stripPreset)) {
     camera.style.aspectRatio = "16 / 9";
     return;
   }
@@ -477,7 +659,7 @@ function updateCameraAspect() {
 }
 
 function updatePreviewVisibility() {
-  const shouldShowCanvas = state.currentScreen === "camera" && (state.shots.length > 0 || Boolean(state.partnerImage));
+  const shouldShowCanvas = state.currentScreen === "frame" && (state.shots.length > 0 || Boolean(state.partnerImage));
   posterCanvas.classList.toggle("hidden-canvas", !shouldShowCanvas);
   previewEmptyState.classList.toggle("visible", !shouldShowCanvas);
 }
@@ -502,12 +684,65 @@ function wait(ms) {
 function drawPoster() {
   updatePreviewVisibility();
 
-  if (state.currentScreen !== "camera" || (!state.shots.length && !state.partnerImage)) {
+  if ((!state.shots.length && !state.partnerImage)) {
     return;
   }
 
+  syncPosterCanvasToStrip();
   ctx.clearRect(0, 0, posterCanvas.width, posterCanvas.height);
   drawStripLayout(state.selectedFrame);
+}
+
+function syncPosterCanvasToStrip() {
+  const stripPreset = getActiveStripPreset();
+  const size = getPosterCanvasSize(stripPreset);
+  if (posterCanvas.width !== size.width) {
+    posterCanvas.width = size.width;
+  }
+  if (posterCanvas.height !== size.height) {
+    posterCanvas.height = size.height;
+  }
+}
+
+function getPosterCanvasSize(stripPreset) {
+  const shotCount = stripPreset.shots;
+  const slotGap = stripPreset.gap;
+  const extraBottomPad = state.selectedFrame.id === "about-you" ? ABOUT_YOU_EXTRA_BOTTOM_PAD : 0;
+  const baseBottomPad = stripPreset.bottomPad + extraBottomPad;
+
+  if (isSplitColumnStripPreset(stripPreset)) {
+    const innerW = stripPreset.stripW - 60;
+    const rows = Math.ceil(shotCount / 2);
+    const columnGap = stripPreset.columnGap || slotGap;
+    const slotW = (innerW - columnGap) / 2;
+    const slotH = slotW * (stripPreset.photoAspect || 1.3);
+    const photoAreaHeight = rows * slotH + slotGap * (rows - 1);
+    const baseStripH = stripPreset.topPad + baseBottomPad + photoAreaHeight;
+    const targetStripH = stripPreset.targetStripAspect ? stripPreset.stripW * stripPreset.targetStripAspect : 0;
+    return {
+      width: Math.round(stripPreset.stripW),
+      height: Math.round(targetStripH > baseStripH ? targetStripH : baseStripH),
+    };
+  }
+
+  const innerW = stripPreset.stripW - 60;
+  const targetStripH = stripPreset.targetStripAspect ? stripPreset.stripW * stripPreset.targetStripAspect : 0;
+  let slotH = innerW * (stripPreset.photoAspect || 1.3);
+  const photoAreaHeight = shotCount * slotH + slotGap * (shotCount - 1);
+  let stripH = stripPreset.topPad + baseBottomPad + photoAreaHeight;
+
+  if (targetStripH > stripH) {
+    stripH = targetStripH;
+    const availablePhotoArea = stripH - stripPreset.topPad - baseBottomPad;
+    slotH = (availablePhotoArea - slotGap * (shotCount - 1)) / shotCount;
+    const grownPhotoArea = shotCount * slotH + slotGap * (shotCount - 1);
+    stripH = stripPreset.topPad + Math.max(18, stripH - stripPreset.topPad - grownPhotoArea) + grownPhotoArea;
+  }
+
+  return {
+    width: Math.round(stripPreset.stripW),
+    height: Math.round(stripH),
+  };
 }
 
 function drawBackdrop(frame) {
@@ -608,6 +843,11 @@ function drawDuoLayout(frame) {
 }
 
 function drawStripLayout(frame) {
+  const stripPreset = getActiveStripPreset();
+  if (stripPreset.variant === "double-copy") {
+    drawDoubleCopyStrip(frame, stripPreset);
+    return;
+  }
   drawPhotoStrip(frame);
 }
 
@@ -662,7 +902,7 @@ function drawShotColumn(x, y, w, h, frame) {
 function drawPhotoStrip(frame) {
   const stripPreset = getActiveStripPreset();
   const metrics = getStripMetrics(stripPreset);
-  const { stripX, stripY, stripW, stripH, innerX, innerY, innerW, slotH, shotCount, slotGap } = metrics;
+  const { stripX, stripY, stripW, stripH, shotCount } = metrics;
   const timestamp = new Date().toLocaleString("id-ID", {
     day: "2-digit",
     month: "2-digit",
@@ -674,14 +914,15 @@ function drawPhotoStrip(frame) {
   drawStripShell(stripX, stripY, stripW, stripH, frame, stripPreset);
 
   for (let i = 0; i < shotCount; i += 1) {
-    drawMediaFrame(innerX, innerY + i * (slotH + slotGap), innerW, slotH, state.shots[i], frame, `POSE 0${i + 1}`, stripPreset.radius);
+    const slotRect = getStripSlotRect(metrics, i);
+    drawMediaFrame(slotRect.x, slotRect.y, slotRect.w, slotRect.h, state.shots[i], frame, `POSE 0${i + 1}`, stripPreset.radius);
   }
 
   drawStripThemeDecor(stripX, stripY, stripW, stripH, frame, metrics);
 
   ctx.save();
   ctx.textAlign = "center";
-  if (frame.id !== "about-you") {
+  if (frame.id !== "about-you" && frame.id !== "barbie") {
     ctx.fillStyle = frame.accent;
     ctx.font = "700 20px Arial";
     ctx.fillText(frame.name, stripX + stripW / 2, stripY + stripH - 54);
@@ -690,45 +931,210 @@ function drawPhotoStrip(frame) {
     ctx.fillText(timestamp, stripX + stripW / 2, stripY + stripH - 26);
     ctx.font = "13px Arial";
     ctx.fillText("StarSnap booth", stripX + stripW / 2, stripY + 34);
+  } else if (frame.id === "about-you") {
+    drawFooterWatermark(stripX + stripW / 2, stripY + stripH - 18, "StarSnap booth", "#8d7a75");
   }
   ctx.textAlign = "left";
   ctx.restore();
 }
 
-function getStripMetrics(stripPreset) {
-  const stripW = stripPreset.stripW;
-  const innerW = stripW - 60;
+function drawFooterWatermark(x, y, text, color = "#8d7a67") {
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.fillStyle = color;
+  ctx.font = "500 11px Arial";
+  ctx.globalAlpha = 0.86;
+  ctx.fillText(text, x, y);
+  ctx.restore();
+}
+
+function drawDoubleCopyStrip(frame, stripPreset) {
+  const metrics = getDoubleCopyStripMetrics(stripPreset);
+  const { sheetX, sheetY, sheetW, sheetH, columnW, columnH, columnGap, columnX1, columnX2, columnY, innerInset, slotGap, slotH, shotCount, footerH } = metrics;
+
+  ctx.save();
+  const paperGradient = ctx.createLinearGradient(sheetX, sheetY, sheetX, sheetY + sheetH);
+  paperGradient.addColorStop(0, "#efe2c8");
+  paperGradient.addColorStop(1, "#dcc29d");
+  ctx.fillStyle = paperGradient;
+  roundRect(ctx, sheetX, sheetY, sheetW, sheetH, 18, true, false);
+  ctx.strokeStyle = "rgba(117, 84, 48, 0.18)";
+  ctx.lineWidth = 2;
+  roundRect(ctx, sheetX, sheetY, sheetW, sheetH, 18, false, true);
+  ctx.restore();
+
+  [columnX1, columnX2].forEach((columnX, columnIndex) => {
+    drawDoubleCopyColumn(frame, stripPreset, columnX, columnY, columnW, columnH, innerInset, slotGap, slotH, shotCount, footerH, columnIndex);
+  });
+}
+
+function drawDoubleCopyColumn(frame, stripPreset, x, y, w, h, inset, slotGap, slotH, shotCount, footerH, columnIndex) {
+  ctx.save();
+  ctx.fillStyle = "rgba(255, 246, 235, 0.92)";
+  roundRect(ctx, x, y, w, h, 14, true, false);
+  ctx.strokeStyle = "#cc3838";
+  ctx.lineWidth = 8;
+  roundRect(ctx, x + 4, y + 4, w - 8, h - 8, 12, false, true);
+  ctx.strokeStyle = "#3657ca";
+  ctx.lineWidth = 4;
+  roundRect(ctx, x + 10, y + 10, w - 20, h - 20, 10, false, true);
+  ctx.restore();
+
+  const innerX = x + inset;
+  const innerW = w - inset * 2;
+  const slotStartY = y + inset;
+  for (let i = 0; i < shotCount; i += 1) {
+    drawMediaFrame(
+      innerX,
+      slotStartY + i * (slotH + slotGap),
+      innerW,
+      slotH,
+      state.shots[i],
+      frame,
+      `POSE 0${i + 1}`,
+      stripPreset.radius
+    );
+  }
+
+  ctx.save();
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#1f1412";
+  ctx.font = "900 26px Arial";
+  ctx.fillText("POSE", x + w / 2, y + h - footerH * 0.46);
+  ctx.fillText("BOX", x + w / 2, y + h - footerH * 0.18);
+  ctx.restore();
+}
+
+function getDoubleCopyStripMetrics(stripPreset) {
+  const sheetW = stripPreset.stripW;
+  const columnGap = 28;
+  const columnW = (sheetW - columnGap - 48) / 2;
+  const innerInset = 18;
+  const innerW = columnW - innerInset * 2;
   const shotCount = stripPreset.shots;
   const slotGap = stripPreset.gap;
   const slotH = innerW * (stripPreset.photoAspect || 1.3);
+  const footerH = stripPreset.bottomPad;
   const photoAreaHeight = shotCount * slotH + slotGap * (shotCount - 1);
-  const extraBottomPad = state.selectedFrame.id === "about-you" ? 74 : 0;
-  const bottomPad = stripPreset.bottomPad + extraBottomPad;
-  const stripH = stripPreset.topPad + bottomPad + photoAreaHeight;
+  const columnH = stripPreset.topPad + photoAreaHeight + footerH;
+  const sheetH = columnH + 34;
+  const sheetX = (posterCanvas.width - sheetW) / 2;
+  const sheetY = Math.max(48, (posterCanvas.height - sheetH) / 2);
+  const columnX1 = sheetX + 10;
+  const columnX2 = columnX1 + columnW + columnGap;
+  const columnY = sheetY + 17;
+
+  return { sheetX, sheetY, sheetW, sheetH, columnW, columnH, columnGap, columnX1, columnX2, columnY, innerInset, innerW, slotGap, slotH, shotCount, footerH };
+}
+
+function getStripMetrics(stripPreset) {
+  const stripW = stripPreset.stripW;
+  const shotCount = stripPreset.shots;
+  const slotGap = stripPreset.gap;
+  const extraBottomPad = state.selectedFrame.id === "about-you" ? ABOUT_YOU_EXTRA_BOTTOM_PAD : 0;
+  const baseBottomPad = stripPreset.bottomPad + extraBottomPad;
+
+  if (isSplitColumnStripPreset(stripPreset)) {
+    const innerW = stripW - 60;
+    const rows = Math.ceil(shotCount / 2);
+    const columnGap = stripPreset.columnGap || slotGap;
+    const slotW = (innerW - columnGap) / 2;
+    const slotH = slotW * (stripPreset.photoAspect || 1.3);
+    const photoAreaHeight = rows * slotH + slotGap * (rows - 1);
+    const baseStripH = stripPreset.topPad + baseBottomPad + photoAreaHeight;
+    const targetStripH = stripPreset.targetStripAspect ? stripW * stripPreset.targetStripAspect : 0;
+    const stripH = targetStripH > baseStripH ? targetStripH : baseStripH;
+    const bottomPad = Math.max(36, stripH - stripPreset.topPad - photoAreaHeight);
+    const stripX = (posterCanvas.width - stripW) / 2;
+    const stripY = Math.max(48, (posterCanvas.height - stripH) / 2);
+
+    return {
+      stripX,
+      stripY,
+      stripW,
+      stripH,
+      innerX: stripX + 30,
+      innerY: stripY + stripPreset.topPad,
+      innerW,
+      slotW,
+      slotH,
+      shotCount,
+      slotGap,
+      columnGap,
+      bottomPad,
+      rows,
+      columns: 2,
+      variant: stripPreset.variant,
+    };
+  }
+
+  const innerW = stripW - 60;
+  const targetStripH = stripPreset.targetStripAspect ? stripW * stripPreset.targetStripAspect : 0;
+
+  let slotH = innerW * (stripPreset.photoAspect || 1.3);
+  let photoAreaHeight = shotCount * slotH + slotGap * (shotCount - 1);
+  let stripH = stripPreset.topPad + baseBottomPad + photoAreaHeight;
+  let bottomPad = baseBottomPad;
+
+  // For fixed-ratio strips, grow the photo slots first so the extra height
+  // is absorbed by the photos instead of leaving a large blank footer.
+  if (targetStripH > stripH) {
+    stripH = targetStripH;
+    const availablePhotoArea = stripH - stripPreset.topPad - baseBottomPad;
+    slotH = (availablePhotoArea - slotGap * (shotCount - 1)) / shotCount;
+    photoAreaHeight = shotCount * slotH + slotGap * (shotCount - 1);
+    bottomPad = Math.max(18, stripH - stripPreset.topPad - photoAreaHeight);
+  }
+
   const stripX = (posterCanvas.width - stripW) / 2;
   const stripY = Math.max(48, (posterCanvas.height - stripH) / 2);
-  const innerX = stripX + 30;
-  const innerY = stripY + stripPreset.topPad;
+  const resolvedInnerX = stripX + 30;
+  const resolvedInnerY = stripY + stripPreset.topPad;
 
-  return { stripX, stripY, stripW, stripH, innerX, innerY, innerW, slotH, shotCount, slotGap, bottomPad };
+  return { stripX, stripY, stripW, stripH, innerX: resolvedInnerX, innerY: resolvedInnerY, innerW, slotH, shotCount, slotGap, bottomPad, variant: stripPreset.variant };
+}
+
+function getStripSlotRect(metrics, index) {
+  if (metrics.variant === "split-columns") {
+    const row = index % metrics.rows;
+    const column = Math.floor(index / metrics.rows);
+    return {
+      x: metrics.innerX + column * (metrics.slotW + metrics.columnGap),
+      y: metrics.innerY + row * (metrics.slotH + metrics.slotGap),
+      w: metrics.slotW,
+      h: metrics.slotH,
+    };
+  }
+
+  return {
+    x: metrics.innerX,
+    y: metrics.innerY + index * (metrics.slotH + metrics.slotGap),
+    w: metrics.innerW,
+    h: metrics.slotH,
+  };
+}
+
+function getStripSlotTop(metrics, index) {
+  return getStripSlotRect(metrics, index).y;
 }
 
 function drawStripShell(x, y, w, h, frame, stripPreset) {
   const stripColor = getActiveStripColor();
+  const shellRadius = 0;
 
   ctx.save();
   ctx.fillStyle = stripColor.base;
-  roundRect(ctx, x, y, w, h, 18, true, false);
+  roundRect(ctx, x, y, w, h, shellRadius, true, false);
   if (stripColor.decorate === "rainbow-stars") {
     ctx.save();
-    roundRect(ctx, x, y, w, h, 18, false, false);
+    roundRect(ctx, x, y, w, h, shellRadius, false, false);
     ctx.clip();
     drawRainbowStarBackdrop(x, y, w, h);
     ctx.restore();
   }
   if (stripColor.image?.complete && stripColor.image.naturalWidth) {
     ctx.save();
-    roundRect(ctx, x, y, w, h, 18, false, false);
+    roundRect(ctx, x, y, w, h, shellRadius, false, false);
     ctx.clip();
     if (stripColor.pattern) {
       drawStripPattern(stripColor.image, x, y, w, h);
@@ -739,9 +1145,9 @@ function drawStripShell(x, y, w, h, frame, stripPreset) {
   }
   ctx.lineWidth = 2;
   ctx.strokeStyle = stripColor.edge;
-  roundRect(ctx, x, y, w, h, 18, false, true);
+  roundRect(ctx, x, y, w, h, shellRadius, false, true);
   ctx.fillStyle = stripColor.inner;
-  roundRect(ctx, x + 12, y + 12, w - 24, h - 24, 14, true, false);
+  roundRect(ctx, x + 12, y + 12, w - 24, h - 24, 0, true, false);
   ctx.restore();
 }
 
@@ -783,59 +1189,147 @@ function drawRainbowStarBackdrop(x, y, w, h) {
 }
 
 function drawStripThemeDecor(x, y, w, h, frame, metrics) {
+  const useFooterDecor = shouldUseFooterDecor(metrics);
+  const decor = getDecorAnchors(x, y, w, h, metrics, useFooterDecor);
   const themeDecor = {
     shinchan: () => {
-      drawStickerLabel("mood on", x + w / 2, y + 86, -0.04, frame.palette[2], frame.accent, "soft");
-      drawShape("burst", x + 38, y + 94, 18, frame.accent);
-      drawShape("star", x + w - 34, y + h - 114, 16, frame.accent);
+      drawStickerLabel("mood on", decor.labelX, decor.labelY, -0.04, frame.palette[2], frame.accent, "soft");
+      drawShape("burst", decor.leftX, decor.leftY, 18, frame.accent);
+      drawShape("star", decor.rightX, decor.rightY, 16, frame.accent);
     },
     "cat-club": () => {
-      drawStickerLabel("meow", x + w / 2, y + 84, -0.04, frame.palette[2], frame.accent, "soft");
-      drawShape("heart", x + 40, y + 100, 14, frame.accent);
-      drawShape("dot", x + w - 38, y + h - 118, 10, frame.accent);
+      drawStickerLabel("meow", decor.labelX, decor.labelY, -0.04, frame.palette[2], frame.accent, "soft");
+      drawShape("heart", decor.leftX, decor.leftY, 14, frame.accent);
+      drawShape("dot", decor.rightX, decor.rightY, 10, frame.accent);
     },
     "flower-note": () => {
-      drawStickerLabel("bloom", x + w / 2, y + 84, -0.04, frame.palette[2], frame.accent, "soft");
-      drawShape("petal", x + 40, y + 100, 16, frame.accent);
-      drawShape("petal", x + w - 36, y + h - 118, 14, frame.accent);
+      drawStickerLabel("bloom", decor.labelX, decor.labelY, -0.04, frame.palette[2], frame.accent, "soft");
+      drawShape("petal", decor.leftX, decor.leftY, 16, frame.accent);
+      drawShape("petal", decor.rightX, decor.rightY, 14, frame.accent);
     },
     "butterfly-air": () => {
-      drawStickerLabel("flutter", x + w / 2, y + 84, -0.04, frame.palette[2], frame.accent, "sharp");
-      drawShape("spark", x + 38, y + 98, 14, frame.accent);
-      drawShape("star", x + w - 36, y + h - 118, 12, frame.accent);
+      drawStickerLabel("flutter", decor.labelX, decor.labelY, -0.04, frame.palette[2], frame.accent, "sharp");
+      drawShape("spark", decor.leftX, decor.leftY, 14, frame.accent);
+      drawShape("star", decor.rightX, decor.rightY, 12, frame.accent);
     },
     "about-you": () => {
       drawAboutYouStickerPack(metrics);
     },
+    barbie: () => {
+      drawBarbieStickerPack(metrics);
+    },
     "kitty-pop": () => {
-      drawStickerLabel("sweet pop", x + w / 2, y + 84, -0.04, frame.palette[2], frame.accent, "soft");
-      drawShape("heart", x + 40, y + 100, 14, frame.accent);
-      drawShape("cloud", x + w - 38, y + h - 120, 12, frame.accent);
+      drawStickerLabel("sweet pop", decor.labelX, decor.labelY, -0.04, frame.palette[2], frame.accent, "soft");
+      drawShape("heart", decor.leftX, decor.leftY, 14, frame.accent);
+      drawShape("cloud", decor.rightX, decor.rightY, 12, frame.accent);
     },
   };
 
   themeDecor[frame.id]?.();
 }
 
+function shouldUseFooterDecor(metrics) {
+  const topMargin = metrics.innerY - metrics.stripY;
+  return metrics.variant === "split-columns" && topMargin < 32 && metrics.bottomPad >= 72;
+}
+
+function getDecorAnchors(x, y, w, h, metrics, useFooterDecor) {
+  if (metrics.shotCount === 1) {
+    const slotRect = getStripSlotRect(metrics, 0);
+    const footerCenterY = y + h - metrics.bottomPad * 0.38;
+    return {
+      labelX: x + w / 2,
+      labelY: footerCenterY,
+      leftX: slotRect.x + slotRect.w * 0.14,
+      leftY: slotRect.y + slotRect.h * 0.14,
+      rightX: slotRect.x + slotRect.w * 0.86,
+      rightY: slotRect.y + slotRect.h * 0.2,
+    };
+  }
+
+  if (useFooterDecor) {
+    const footerCenterY = y + h - metrics.bottomPad * 0.45;
+    return {
+      labelX: x + w / 2,
+      labelY: footerCenterY,
+      leftX: x + w * 0.14,
+      leftY: footerCenterY,
+      rightX: x + w * 0.86,
+      rightY: footerCenterY,
+    };
+  }
+
+  return {
+    labelX: x + w / 2,
+    labelY: y + 84,
+    leftX: x + 40,
+    leftY: y + 100,
+    rightX: x + w - 38,
+    rightY: y + h - 118,
+  };
+}
+
 function drawAboutYouStickerPack(metrics) {
-  const { stripX, stripY, stripW, stripH, innerX, innerY, innerW, slotH, shotCount, slotGap, bottomPad } = metrics;
-  const slotTopAt = (index) => innerY + Math.min(index, shotCount - 1) * (slotH + slotGap);
+  const { stripX, stripY, stripW, stripH, innerX, innerW, slotH, shotCount, bottomPad } = metrics;
+  if (shotCount === 1) {
+    const slotRect = getStripSlotRect(metrics, 0);
+    const footerCenterY = stripY + stripH - bottomPad * 0.42;
+    const clapperBox = Math.min(innerW * 0.8, slotRect.h * 0.22);
+    const carMaxWidth = innerW * 0.94;
+    const carMaxHeight = slotRect.h * 0.22;
+    const footerStickerMaxWidth = innerW * 0.76;
+    const footerStickerMaxHeight = slotRect.h * 0.2;
+    const titleBox = Math.min(stripW * 0.96, bottomPad * 1.66);
+
+    drawStickerImageFit(
+      aboutYouStickerAssets.clapper,
+      slotRect.x + slotRect.w * 0.18,
+      slotRect.y + slotRect.h * 0.12,
+      clapperBox,
+      clapperBox,
+      -0.14
+    );
+    drawStickerImageFit(
+      aboutYouStickerAssets.car,
+      slotRect.x + slotRect.w * 0.76,
+      slotRect.y + slotRect.h * 0.16,
+      carMaxWidth,
+      carMaxHeight,
+      -0.08
+    );
+    drawStickerImageFit(
+      aboutYouStickerAssets.footer,
+      slotRect.x + slotRect.w * 0.2,
+      slotRect.y + slotRect.h * 0.76,
+      footerStickerMaxWidth,
+      footerStickerMaxHeight,
+      0.08
+    );
+    drawStickerImageFit(
+      aboutYouStickerAssets.bunny,
+      stripX + stripW * 0.56,
+      footerCenterY,
+      titleBox,
+      bottomPad * 0.9,
+      -0.02
+    );
+    return;
+  }
+
+  const slotTopAt = (index) => getStripSlotTop(metrics, Math.min(index, shotCount - 1));
   const firstSlotTop = slotTopAt(0);
   const secondSlotTop = slotTopAt(1);
   const thirdSlotTop = slotTopAt(2);
-  const footerCenterY = stripY + stripH - bottomPad * 0.48;
+  const footerCenterY = stripY + stripH - bottomPad * 0.6;
   const leftX = innerX + innerW * 0.16;
   const rightX = innerX + innerW * 0.82;
-  const centerRightX = innerX + innerW * 0.73;
   const titleX = stripX + stripW * 0.58;
-  const clapperBox = Math.min(innerW * 0.6, slotH * 0.34);
-  const carMaxWidth = innerW * 0.92;
-  const carMaxHeight = slotH * 0.34;
-  const footerMaxWidth = innerW * 0.76;
-  const footerMaxHeight = slotH * 0.3;
-  const titleBox = Math.min(stripW * 1.5, bottomPad * 2.7);
-  const footerStickerMaxWidth = innerW * 0.9;
-  const footerStickerMaxHeight = slotH * 0.38;
+  const clapperBox = Math.min(innerW * 1.08, slotH * 0.66);
+  const carMaxWidth = innerW * 1.52;
+  const carMaxHeight = slotH * 0.7;
+  const titleBox = Math.min(stripW * 1.2, bottomPad * 2.2);
+  const footerStickerMaxWidth = innerW * 1.24;
+  const footerStickerMaxHeight = slotH * 0.58;
 
   drawStickerImageFit(
     aboutYouStickerAssets.clapper,
@@ -849,8 +1343,8 @@ function drawAboutYouStickerPack(metrics) {
     aboutYouStickerAssets.footer,
     leftX,
     thirdSlotTop + slotH * 0.83,
-    carMaxWidth,
-    carMaxHeight,
+    footerStickerMaxWidth,
+    footerStickerMaxHeight,
     0.08
   );
   drawStickerImageFit(
@@ -866,9 +1360,78 @@ function drawAboutYouStickerPack(metrics) {
     titleX,
     footerCenterY,
     titleBox,
-    bottomPad * 1.02,
+    bottomPad * 0.98,
     -0.02
   );
+}
+
+function drawBarbieStickerPack(metrics) {
+  const { stripX, stripY, stripW, stripH, innerX, innerW, slotH, shotCount, bottomPad } = metrics;
+  const slotRectAt = (index) => getStripSlotRect(metrics, Math.min(index, shotCount - 1));
+  const footerCenterY = stripY + stripH - bottomPad * 0.44;
+  const layout = getBarbieLayout(shotCount);
+
+  drawBarbieStickerAsset("one", layout.one, innerX, innerW, slotRectAt, slotH);
+  drawBarbieStickerAsset("three", layout.three, innerX, innerW, slotRectAt, slotH);
+  drawBarbieStickerAsset("five", layout.five, innerX, innerW, slotRectAt, slotH);
+  drawBarbieStickerFooter(layout.footer, innerX, innerW, stripX, stripW, footerCenterY, bottomPad, slotH);
+}
+
+function getBarbieLayout(shotCount) {
+  const base = {
+    one: { slotIndex: 0, xFactor: 0.82, yOffset: -0.04, widthFactor: 1.42, heightFactor: 0.76, rotation: 0.16 },
+    three: { slotIndex: 2, xFactor: 0.78, yOffset: 0.04, widthFactor: 1.02, heightFactor: 0.64, rotation: 0.08 },
+    five: { slotIndex: 3, xFactor: 0.22, yOffset: 0.18, widthFactor: 0.56, heightFactor: 0.42, rotation: -0.08 },
+    footer: { xFactor: 0.28, yOffset: -0.9, widthFactor: 1.08, heightFactor: 1 },
+  };
+  const overrides = {
+    1: {
+      one: { slotIndex: 0, xFactor: 0.76, yOffset: -0.08, widthFactor: 0.98, heightFactor: 0.54, rotation: 0.14 },
+      three: { slotIndex: 0, xFactor: 0.24, yOffset: 0.12, widthFactor: 0.62, heightFactor: 0.34, rotation: -0.08 },
+      five: { slotIndex: 0, xFactor: 0.8, yOffset: 0.24, widthFactor: 0.42, heightFactor: 0.28, rotation: 0.06 },
+      footer: { xFactor: 0.32, yOffset: -0.58, widthFactor: 0.78, heightFactor: 0.72 },
+    },
+    2: {
+      one: { xFactor: 0.78, yOffset: -0.08, widthFactor: 1.4, heightFactor: 0.8, rotation: 0.22 },
+      three: { slotIndex: 1, xFactor: 0.2, yOffset: 0.08, widthFactor: 1.1, heightFactor: 0.56, rotation: -0.05 },
+      five: { slotIndex: 1, xFactor: 0.26, yOffset: 0.1, widthFactor: 0.52, heightFactor: 0.36, rotation: -0.08 },
+    },
+    3: {
+      one: { yOffset: -0.08, widthFactor: 1.34, heightFactor: 0.82, rotation: 0.2 },
+      three: { slotIndex: 1, xFactor: 0.2, yOffset: 0.1, widthFactor: 0.88, heightFactor: 0.54, rotation: -0.09 },
+      five: { slotIndex: 2, xFactor: 0.78, yOffset: 0.14, widthFactor: 0.66, heightFactor: 0.48, rotation: 0.1 },
+    },
+    6: {
+      one: { yOffset: -0.06, widthFactor: 1.28, heightFactor: 0.72, rotation: 0.18 },
+      three: { slotIndex: 4, xFactor: 0.78, yOffset: 0.04, widthFactor: 0.9, heightFactor: 0.56, rotation: 0.08 },
+      five: { slotIndex: 5, xFactor: 0.26, yOffset: 0.04, widthFactor: 0.6, heightFactor: 0.45, rotation: -0.04 },
+    },
+  };
+  const layout = { ...base };
+  if (overrides[shotCount]) {
+    Object.entries(overrides[shotCount]).forEach(([key, trait]) => {
+      layout[key] = { ...layout[key], ...trait };
+    });
+  }
+  return layout;
+}
+
+function drawBarbieStickerAsset(key, trait, innerX, innerW, slotRectAt, slotH) {
+  if (!barbieStickerAssets[key] || !trait) return;
+  const slotRect = slotRectAt(trait.slotIndex ?? 0);
+  const x = innerX + innerW * trait.xFactor;
+  const y = slotRect.y + slotH * trait.yOffset;
+  const width = innerW * trait.widthFactor;
+  const height = slotH * trait.heightFactor;
+  drawStickerImageFit(barbieStickerAssets[key], x, y, width, height, trait.rotation);
+}
+
+function drawBarbieStickerFooter(trait, innerX, stripX, stripW, footerCenterY, bottomPad) {
+  if (!trait) return;
+  const x = innerX + innerW * trait.xFactor || stripX + stripW * trait.xFactor;
+  const width = stripW * trait.widthFactor;
+  const height = Math.max(64, bottomPad * 1.16);
+  drawStickerImageFit(barbieStickerAssets.four, x, footerCenterY + trait.yOffset * height, width, height, -0.06);
 }
 
 function drawStickerImage(image, centerX, centerY, width, height, rotation = 0, cleanupWhite = false) {
@@ -936,21 +1499,20 @@ function drawMediaFrame(x, y, w, h, source, frame, label, radius = 30) {
   const theme = frame.theme || "kawaii";
   const stripPreset = getActiveStripPreset();
   const isKoreanStrip = state.layout === "strip" && stripPreset.id === "korean";
+  const isStripLayout = state.layout === "strip";
+  const mediaInsetX = isStripLayout ? 8 : 24;
+  const mediaInsetY = isStripLayout ? 8 : 24;
   ctx.save();
   ctx.fillStyle = "white";
   roundRect(ctx, x, y, w, h, radius, true, false);
   ctx.fillStyle = isKoreanStrip ? "rgba(0, 0, 0, 0.03)" : `${frame.palette[2]}55`;
-  roundRect(ctx, x + 14, y + 14, w - 28, h - 28, Math.max(radius - 8, 14), true, false);
+  roundRect(ctx, x + 14, y + 14, w - 28, h - 28, Math.max(radius - 8, 0), true, false);
 
   if (source) {
-    drawImageCover(source, x + 24, y + 24, w - 48, h - 48);
+    drawImageCover(source, x + mediaInsetX, y + mediaInsetY, w - mediaInsetX * 2, h - mediaInsetY * 2);
   } else {
-    drawPlaceholder(x + 24, y + 24, w - 48, h - 48, label, frame);
+    drawPlaceholder(x + mediaInsetX, y + mediaInsetY, w - mediaInsetX * 2, h - mediaInsetY * 2, label, frame);
   }
-
-  ctx.fillStyle = isKoreanStrip ? "#6c6363" : frame.accent;
-  ctx.font = isKoreanStrip ? "700 18px Arial" : theme === "retro" ? "700 22px Courier New" : "700 24px Trebuchet MS";
-  ctx.fillText(label, x + 28, y + h - 24);
   ctx.restore();
 }
 
@@ -1252,14 +1814,50 @@ function drawImageCover(source, x, y, w, h) {
   ctx.fillRect(x, y, w, h);
   roundRect(ctx, x, y, w, h, 18, false, false);
   ctx.clip();
-  ctx.filter = getActiveFilter();
   ctx.drawImage(image, dx, dy, drawWidth, drawHeight);
-  ctx.filter = "none";
   ctx.restore();
+}
+
+function drawVideoFrameCover(context, video, x, y, w, h, options = {}) {
+  const { flipX = false } = options;
+  const sourceWidth = video.videoWidth || video.clientWidth || w;
+  const sourceHeight = video.videoHeight || video.clientHeight || h;
+  const sourceRatio = sourceWidth / sourceHeight;
+  const targetRatio = w / h;
+  let sx = 0;
+  let sy = 0;
+  let sw = sourceWidth;
+  let sh = sourceHeight;
+
+  if (sourceRatio > targetRatio) {
+    sw = sourceHeight * targetRatio;
+    sx = (sourceWidth - sw) / 2;
+  } else {
+    sh = sourceWidth / targetRatio;
+    sy = (sourceHeight - sh) / 2;
+  }
+
+  context.save();
+  if (flipX) {
+    context.translate(x + w, y);
+    context.scale(-1, 1);
+    context.drawImage(video, sx, sy, sw, sh, 0, 0, w, h);
+  } else {
+    context.drawImage(video, sx, sy, sw, sh, x, y, w, h);
+  }
+  context.restore();
 }
 
 function getActiveFilter() {
   return filterPresets.find((filter) => filter.id === state.filter)?.css || "none";
+}
+
+function applyCameraFilter() {
+  const activeFilter = getActiveFilter();
+  camera.style.filter = activeFilter;
+  if (cameraPreviewMirror) {
+    cameraPreviewMirror.style.filter = activeFilter;
+  }
 }
 
 function wrapText(text, x, y, maxWidth, lineHeight) {
@@ -1321,7 +1919,13 @@ function downloadPoster() {
   link.href = exportCanvas.toDataURL("image/png");
   link.download = `starsnap-${state.selectedFrame.id}-${state.stripStyle}.png`;
   link.click();
-  statusText.textContent = "Strip PNG berhasil di-download.";
+  setStatusText("Strip PNG berhasil di-download.");
+}
+
+function setStatusText(message) {
+  statusTexts.forEach((node) => {
+    node.textContent = message;
+  });
 }
 
 init();
