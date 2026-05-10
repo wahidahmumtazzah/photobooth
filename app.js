@@ -1929,5 +1929,5 @@ function setStatusText(message) {
 }
 
 init();
-
+// update camera filter
 //photobooth
