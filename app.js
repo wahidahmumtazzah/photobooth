@@ -132,6 +132,7 @@ const stripColorPresets = [
   { id: "peach-soda", name: "Peach", base: "#ffe9df", edge: "rgba(224, 139, 98, 0.26)", inner: "rgba(255, 255, 255, 0.18)" },
   { id: "strawberry", name: "Berry", base: "#ffd7df", edge: "rgba(217, 89, 132, 0.28)", inner: "rgba(255, 255, 255, 0.18)" },
 ];
+//update photobooth ui
 const stripPresets = [
   { id: "posebox", name: "Pose Box", desc: "1 pose . 4x6 portrait", shots: 1, stripW: 404, topPad: 18, bottomPad: 122, gap: 18, radius: 0, photoAspect: 1.18, targetStripAspect: 1.5, accent: "#3e5ed9", surface: "linear-gradient(180deg, #efe2c8 0%, #dcc29d 100%)", previewTone: "post" },
   { id: "korean", name: "Korean 4", desc: "4 pose . slim clean booth strip", shots: 4, stripW: 340, topPad: 64, bottomPad: 72, gap: 18, radius: 0, photoAspect: 9 / 16, targetStripAspect: 2.86, accent: "#ff6b9a", surface: "linear-gradient(180deg, #ffe0eb 0%, #ffc7d9 100%)", previewTone: "soft" },
