@@ -64,7 +64,6 @@ const framePresets = [
   },
 ];
 
-// update photobooth camera-----
 const state = {
   selectedFrame: framePresets[0],
   shots: [],
