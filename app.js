@@ -1929,3 +1929,5 @@ function setStatusText(message) {
 }
 
 init();
+
+//photobooth
